@@ -1,8 +1,8 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
-      <img src="{{asset('images/icono1.jpg')}}" alt="IOTECH`" class="brand-image elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">IOTECH</span>
+      <img src="{{asset('images/icono1.jpg')}}" alt="Control" class="brand-image elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">Control</span>
     </a>
 
     <!-- Sidebar -->
@@ -40,21 +40,21 @@
          
           <!--<li class="nav-header">Panel de Control</li>-->
           
-
+ 
           <li class="nav-item">
-            <a href="{{url('equipos')}}" class="nav-link">
+            <a href="{{url('formularios')}}" class="nav-link">
             <i class="nav-icon fa fa-tablet" aria-hidden="true"></i>
               <p>
-                Equipos
+                Formularios
               </p>
             </a>
           </li>
 
           <li class="nav-item">
-            <a href="{{url('operadores')}}" class="nav-link">
+            <a href="{{url('medicos')}}" class="nav-link">
             <i class="nav-icon fa fa-group" aria-hidden="true"></i>
               <p>
-                Operadores
+                Médicos
               </p>
             </a>
           </li>

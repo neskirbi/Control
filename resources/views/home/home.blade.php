@@ -55,7 +55,7 @@
             
             <div class="col-lg-4">
                 <a href="" class="navbar-brand d-none d-lg-block">
-                    <h1 class="m-0 display-5 text-capitalize"><span class="text-primary">IOTECH</span>Tecnology</h1>
+                    <h1 class="m-0 display-5 text-capitalize"><span class="text-primary">IOTECH</span>Med</h1>
                 </a>
             </div>
             

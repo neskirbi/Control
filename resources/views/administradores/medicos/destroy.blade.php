@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   @include('administradores.header')
-  <title>IOTECH | Operadores</title>
+  <title>Control | Médicos</title>
 
   
 </head>
@@ -35,7 +35,7 @@
           <div class="col-12">
               <div class="card card-danger">
                   <div class="card-header">
-                      <h3 class="card-title"><i class="nav-icon fa fa-trash" aria-hidden="true"></i> Quitar Operador</h3> 
+                      <h3 class="card-title"><i class="nav-icon fa fa-trash" aria-hidden="true"></i> Quitar Médico</h3> 
                                                
                   </div>     
                   <div class="card-body">
@@ -45,13 +45,13 @@
                           <div class="col-sm-6">
                               <div class='form-group'>
                                   <label for="nombre">Nombre(s)</label>
-                                  <input disabled type="text" class="form-control" id="nombres" name="nombres" placeholder="Nombre(s)" value="{{$operador->nombres}}">
+                                  <input disabled type="text" class="form-control" id="nombres" name="nombres" placeholder="Nombre(s)" value="{{$medico->nombres}}">
                               </div>
                           </div>
                           <div class="col-sm-6">
                               <div class='form-group'>
                                   <label for="apellidos">Apellidos</label>
-                                  <input disabled type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Apellidos" value="{{$operador->apellidos}}">
+                                  <input disabled type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Apellidos" value="{{$medico->apellidos}}">
                               </div>
                           </div>
                       </div>
@@ -62,7 +62,7 @@
                           <div class="col-sm-4">
                             <div class='form-group'>
                               <label for="mail">Correo</label>
-                              <input onkeyup="Cambio(this,'mail');" data-valor="{{$operador->mail}}" disabled type="mail" class="form-control" id="mail" placeholder="Correo"  value="{{$operador->mail}}">
+                              <input onkeyup="Cambio(this,'mail');" data-valor="{{$medico->mail}}" disabled type="mail" class="form-control" id="mail" placeholder="Correo"  value="{{$medico->mail}}">
                             </div>
                           </div>                         
                           
@@ -72,7 +72,7 @@
 
                         <div class="row">
                           <div class="col-md-3">
-                          <a href="{{url('operadores')}}" class="btn btn-info btn-block"><i class="nav-icon fa fa-times" aria-hidden="true"></i> Cancelar</a>                     
+                          <a href="{{url('medicos')}}" class="btn btn-info btn-block"><i class="nav-icon fa fa-times" aria-hidden="true"></i> Cancelar</a>                     
                           </div>
 
                           <div class="col-md-3">
@@ -84,7 +84,7 @@
                           </div>
 
                           <div class="col-md-3">
-                            <form action="{{url('operadores')}}/{{$operador->id}}" id="Nadmin" method="post">
+                            <form action="{{url('medicos')}}/{{$medico->id}}" id="Nadmin" method="post">
                               @csrf
                               @method('delete')
                               <button class="btn btn-danger btn-block"><i class="nav-icon fa fa-times" aria-hidden="true"></i> Borrar</button>                     

@@ -20,10 +20,10 @@ Route::get('/', function () {
     }  
 
     if(Auth::guard('administradores')->check()){
-        return redirect('operadores');
+        return redirect('medicos');
     }   
 
-    if(Auth::guard('operadores')->check()){
+    if(Auth::guard('medicos')->check()){
         return redirect('equiposop');
     }  
 
@@ -64,13 +64,18 @@ Route::post('Ingresar', 'App\Http\Controllers\Login\LoginController@Ingresar');
   Route::resource('equipos', 'App\Http\Controllers\Administrador\EquipoController');
   Route::get('BorrarEquipo/{id}', 'App\Http\Controllers\Administrador\EquipoController@BorrarEquipo');
 
+  Route::resource('formularios', 'App\Http\Controllers\Administrador\FormularioController');
+  Route::post('GuardarNombreFormulario/{id}', 'App\Http\Controllers\Administrador\FormularioController@GuardarNombreFormulario');
+  
 
-  Route::resource('operadores', 'App\Http\Controllers\Administrador\OperadorController');
-  Route::get('BorrarOperador/{id}', 'App\Http\Controllers\Administrador\OperadorController@BorrarOperador');
+  Route::resource('medicos', 'App\Http\Controllers\Administrador\MedicoController');
+  
+
+  Route::get('BorrarMedico/{id}', 'App\Http\Controllers\Administrador\MedicoController@BorrarMedico');
   
 
   /**
    * Rutas Operadores
    */
 
-   Route::resource('equiposop', 'App\Http\Controllers\Operadores\EquipoController');
+   Route::resource('equiposop', 'App\Http\Controllers\Medico\EquipoController');

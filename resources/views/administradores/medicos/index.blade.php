@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   @include('administradores.header')
-  <title>IOTECH | Operadores</title>
+  <title>Control | Médicos</title>
 
   
 </head>
@@ -33,7 +33,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title"><i class="nav-icon fa fa-group" aria-hidden="true"></i> Operadores</h3>
+                <h3 class="card-title"><i class="nav-icon fa fa-group" aria-hidden="true"></i> Médicos</h3>
 
                 <div class="card-tools">
                   <!--
@@ -65,49 +65,68 @@
               <!-- /.card-header -->
               <div class="card-body" style="overflow-x: scroll;">
 
-              @foreach($operadores as $operador)
+              @foreach($medicos as $medico)
 
               <div class="row">
                 <div class="col-12">
                     <div class="card ">
                         <div class="card-header">
-                            <h3 class="card-title"><i class="nav-icon fa fa-user" aria-hidden="true"></i> Operador</h3> 
+                            <h3 class="card-title"><i class="nav-icon fa fa-user" aria-hidden="true"></i> Médicos</h3> 
                             <div class="card-tools">
                                 <div class="btn-group dropleft">
                                     <button class="btn btn-default " type="button" id="menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa fa-bars" aria-hidden="true"></i>
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="menu">
-                                        <a class="dropdown-item" href="{{url('BorrarOperador').'/'.$operador->id}}"><i class="fa fa-trash" aria-hidden="true"></i> Quitar</a>
+                                        <a class="dropdown-item" href="{{url('BorrarMedico').'/'.$medico->id}}"><i class="fa fa-trash" aria-hidden="true"></i> Quitar</a>
                                     </div>
                                 </div>
                             </div>                           
                         </div>     
                         <div class="card-body">
-                          <form action="{{url('operadores')}}/{{$operador->id}}" id="Nadmin" method="post">
+                          <form action="{{url('medicos')}}/{{$medico->id}}" id="Nadmin" method="post">
                             @csrf                            
                             @method('put')
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class='form-group'>
                                         <label for="nombre">Nombre(s)</label>
-                                        <input required type="text" class="form-control" id="nombres" name="nombres" placeholder="Nombre(s)" value="{{$operador->nombres}}">
+                                        <input required type="text" class="form-control" id="nombres" name="nombres" placeholder="Nombre(s)" value="{{$medico->nombres}}">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class='form-group'>
                                         <label for="apellidos">Apellidos</label>
-                                        <input required type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Apellidos" value="{{$operador->apellidos}}">
+                                        <input required type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Apellidos" value="{{$medico->apellidos}}">
                                     </div>
                                 </div>
                             </div>
+
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class='form-group'>
+                                        <label for="entrada">Entrada</label>
+                                        <input required type="time" class="form-control" id="entrada" name="entrada" placeholder="Entrada" value="{{$medico->entrada}}">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class='form-group'>
+                                        <label for="salida">Salida</label>
+                                        <input required type="time" class="form-control" id="salida" name="salida" placeholder="Salida" value="{{$medico->salida}}">
+                                    </div>
+                                </div>
+                            </div>
+
+
+
                             <div class="row">                     
                                                    
                                
                                <div class="col-sm-4">
                                    <div class='form-group'>
                                        <label for="mail">Correo</label>
-                                       <input onkeyup="Cambio(this,'mail');" data-valor="{{$operador->mail}}" required type="mail" class="form-control" id="mail" placeholder="Correo"  value="{{$operador->mail}}">
+                                       <input onkeyup="Cambio(this,'mail');" data-valor="{{$medico->mail}}" required type="mail" class="form-control" id="mail" placeholder="Correo"  value="{{$medico->mail}}">
                                    </div>
                                </div> 
                                
@@ -116,10 +135,10 @@
                                    <div class='form-group'>
                                       <label for="temp">Generar Contraseña</label>
                                       <div class="input-group mb-3">
-                                        <div class="input-group-prepend" style="cursor:pointer;" onclick="GenerarPass('{{$operador->id}}');">
+                                        <div class="input-group-prepend" style="cursor:pointer;" onclick="GenerarPass('{{$medico->id}}');">
                                           <span class="input-group-text"><i class="fa fa-recycle"></i></span>
                                         </div>
-                                        <input disabled type="text" class="form-control" id="temp" value="{{$operador->temp}}">
+                                        <input disabled type="text" class="form-control" id="temp" value="{{$medico->temp}}">
                                       </div>
                                    </div>
                                </div> 
@@ -139,11 +158,11 @@
                 <div class="col-12">
                     <div class="card card-info">
                         <div class="card-header">
-                            <h3 class="card-title">Agregar Operador</h3>                            
+                            <h3 class="card-title">Agregar Médico</h3>                            
                         </div>                        
                         @csrf
                         <div class="card-body">
-                          <form action="{{url('operadores')}}" id="Nadmin" method="post">
+                          <form action="{{url('medicos')}}" id="Nadmin" method="post">
                             @csrf
                             <div class="row">
                                 <div class="col-sm-6">
@@ -159,6 +178,25 @@
                                     </div>
                                 </div>
                             </div>
+
+                            
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class='form-group'>
+                                        <label for="entrada">Entrada</label>
+                                        <input required type="time" class="form-control" id="entrada" name="entrada" placeholder="Entrada" >
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class='form-group'>
+                                        <label for="salida">Salida</label>
+                                        <input required type="time" class="form-control" id="salida" name="salida" placeholder="Salida" >
+                                    </div>
+                                </div>
+                            </div>
+
+
                             <div class="row">                            
                                
                                <div class="col-sm-4">

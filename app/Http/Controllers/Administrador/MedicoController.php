@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Administrador;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Operador;
+use App\Models\Medico;
 
-class OperadorController extends Controller
+class MedicoController extends Controller
 {
 
     public function __construct(){
@@ -19,8 +19,8 @@ class OperadorController extends Controller
      */
     public function index(Request $request)
     {
-        $operadores = Operador::where('id_administrador',GetId())->paginate(15);
-        return view('administradores.operadores.index',['operadores'=>$operadores]);
+        $medicos = Medico::where('id_administrador',GetId())->paginate(15);
+        return view('administradores.medicos.index',['medicos'=>$medicos]);
     }
 
     /**
@@ -42,18 +42,20 @@ class OperadorController extends Controller
     public function store(Request $request)
     {
         if(ValidarMail($request->mail)){
-            return redirect('operadores')->with('error','Ingresar un correo diferente, con el que intentó ya está registrado.');
+            return redirect('medicos')->with('error','Ingresar un correo diferente, con el que intentó ya está registrado.');
         }
-        $operador = new Operador();
-        $operador->id = GetUuid();
-        $operador->id_administrador=GetId();
-        $operador->nombres = $request->nombres;
-        $operador->apellidos = $request->apellidos;
-        $operador->mail = $request->mail;        
-        $operador->pass = '';
-        $operador->token = '';   
-        $operador->save();
-        return redirect('operadores')->with('success','Datos Guardados.');
+        $medico = new Medico();
+        $medico->id = GetUuid();
+        $medico->id_administrador=GetId();
+        $medico->nombres = $request->nombres;
+        $medico->apellidos = $request->apellidos;
+        $medico->entrada = $request->entrada;
+        $medico->salida = $request->salida;
+        $medico->mail = $request->mail;        
+        $medico->pass = '';
+        $medico->token = '';   
+        $medico->save();
+        return redirect('medicos')->with('success','Datos Guardados.');
     }
 
     /**
@@ -88,18 +90,20 @@ class OperadorController extends Controller
     public function update(Request $request, $id)
     {
         if(ValidarMail($request->mail)){
-            return redirect('operadores')->with('error','Ingresar un correo diferente, con el que intentó ya está registrado.');
+            return redirect('medicos')->with('error','Ingresar un correo diferente, con el que intentó ya está registrado.');
         }
-        $operador = Operador::find($id);
+        $medico = Medico::find($id);
         
-        $operador->nombres = $request->nombres;
-        $operador->apellidos = $request->apellidos;
+        $medico->nombres = $request->nombres;
+        $medico->apellidos = $request->apellidos;
+        $medico->entrada = $request->entrada;
+        $medico->salida = $request->salida;
         
         if(isset($request->mail))
-        $operador->mail = $request->mail;
+        $medico->mail = $request->mail;
         
-        $operador->save();
-        return redirect('operadores')->with('success','Datos Guardados.');
+        $medico->save();
+        return redirect('medicos')->with('success','Datos Guardados.');
     }
 
     /**
@@ -110,16 +114,16 @@ class OperadorController extends Controller
      */
     public function destroy($id)
     {
-        $operador = Operador::find($id);
-        $operador->delete();
-        return redirect('operadores')->with('error','Registro Borrado.');
+        $medico = Medico::find($id);
+        $medico->delete();
+        return redirect('medicos')->with('error','Registro Borrado.');
     }
 
 
-    function BorrarOperador($id){        
+    function BorrarMedico($id){        
 
-        $operador = Operador::find($id);
+        $medico = Medico::find($id);
 
-        return view('administradores.operadores.destroy',['operador'=>$operador]);
+        return view('administradores.medicos.destroy',['medico'=>$medico]);
     }
 }

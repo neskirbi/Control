@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-class OPLog
+class MDLog
 {
     /**
      * Handle an incoming request.
@@ -16,7 +16,7 @@ class OPLog
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::guard('operadores')->check()){
+        if(Auth::guard('medicos')->check()){
             return $next($request);
         }
         return redirect('/');

@@ -65,6 +65,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'sulog' => \App\Http\Middleware\SULog::class, 
         'adlog' => \App\Http\Middleware\ADLog::class, 
-        'oplog' => \App\Http\Middleware\OPLog::class, 
+        'mdlog' => \App\Http\Middleware\MDLog::class, 
     ];
 }

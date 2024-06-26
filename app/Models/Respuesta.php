@@ -3,11 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
-class Operador extends Authenticatable
+class Respuesta extends Model
 {
-    protected $table = 'operadores';
+    protected $table = 'respuestas';
     protected $primaryKey = 'id';
     public $incrementing = false;
 }

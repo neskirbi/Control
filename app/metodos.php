@@ -3,7 +3,7 @@
 use App\Models\SuperUsuario;
 use App\Models\Administrador;
 use App\Models\Cliente;
-use App\Models\Operador;
+use App\Models\Medico;
 
 function Memoria(){
     set_time_limit(0);
@@ -38,7 +38,7 @@ function ValidarMail($mail){
         return true;
     }
 
-    if(Operador::where('mail',$mail)->first()){
+    if(Medico::where('mail',$mail)->first()){
         return true;
     }
 
@@ -58,8 +58,8 @@ function GetId(){
         return Auth::guard('administradores')->user()->id;
     }
 
-    if(Auth::guard('operadores')->check()){
-        return Auth::guard('operadores')->user()->id;
+    if(Auth::guard('medicos')->check()){
+        return Auth::guard('medicos')->user()->id;
     }
 }
 

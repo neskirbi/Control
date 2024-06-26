@@ -56,9 +56,9 @@ return [
             'provider' => 'clientes',
         ],
 
-        'operadores' => [
+        'medicos' => [
             'driver' => 'session',
-            'provider' => 'operadores',
+            'provider' => 'medicos',
         ],
 
     ],
@@ -97,9 +97,9 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Cliente::class,
         ],
-        'operadores' => [
+        'medicos' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Operador::class,
+            'model' => App\Models\Medico::class,
         ],
 
         // 'users' => [
