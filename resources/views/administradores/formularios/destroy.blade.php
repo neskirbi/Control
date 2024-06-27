@@ -4,9 +4,9 @@
 
 <head>
 
-  @include('uia.header')
+  @include('administradores.header')
 
-  <title>Encuestas</title>
+  <title>formularios</title>
 
 
 
@@ -26,7 +26,7 @@
 
  
 
-  @include('uia.navigations.navigation')
+  @include('administradores.navigations.navigation')
 
   <!-- /.navbar -->
 
@@ -34,7 +34,7 @@
 
   <!-- Main Sidebar Container -->
 
-  @include('uia.sidebars.sidebar')
+  @include('administradores.sidebars.sidebar')
 
 
 
@@ -64,7 +64,7 @@
 
         <div class="callout callout-danger">
 
-            <h5>Eliminar: {{$encuesta->encuesta}} ?</h5>
+            <h5>Eliminar: {{$formulario->formulario}} ?</h5>
 
         </div>
 
@@ -86,7 +86,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <a class="btn btn-info" href="{{url('formularios')}}">  Cancelar</a>                                    
-                                    <a class="btn btn-danger float-right" href="{{url('DestroyFormulario')}}/{{$encuesta->id}}"> </i> Eliminar</a>
+                                    <a class="btn btn-danger float-right" href="{{url('DestroyFormulario')}}/{{$formulario->id}}"> </i> Eliminar</a>
                                 </div>
                             </div>
                         </div>

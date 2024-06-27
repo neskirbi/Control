@@ -62,9 +62,18 @@ Route::post('Ingresar', 'App\Http\Controllers\Login\LoginController@Ingresar');
 
 
   Route::resource('equipos', 'App\Http\Controllers\Administrador\EquipoController');
+  
+
   Route::get('BorrarEquipo/{id}', 'App\Http\Controllers\Administrador\EquipoController@BorrarEquipo');
 
   Route::resource('formularios', 'App\Http\Controllers\Administrador\FormularioController');
+  Route::post('UpdatePregunta/{id}', 'App\Http\Controllers\Administrador\FormularioController@UpdatePregunta');
+  Route::get('formularios/Copy/{id}', 'App\Http\Controllers\Administrador\FormularioController@Copy');
+  Route::post('Copiar/{id}', 'App\Http\Controllers\Administrador\FormularioController@Copiar');
+  Route::get('EliminarFormulario/{id}', 'App\Http\Controllers\Administrador\FormularioController@EliminarFormulario');
+  Route::get('DestroyFormulario/{id}', 'App\Http\Controllers\Administrador\FormularioController@DestroyFormulario');
+  
+
   Route::post('GuardarNombreFormulario/{id}', 'App\Http\Controllers\Administrador\FormularioController@GuardarNombreFormulario');
   
 

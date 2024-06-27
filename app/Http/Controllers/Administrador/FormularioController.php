@@ -128,9 +128,8 @@ class FormularioController extends Controller
         $formulario->formulario=$request->formulario;
         $formulario->id=$iden;
         $formulario->save();
-        
 
-        $pres=Pregunta::where('id_formulario',$formulario->id)->get();
+        $pres=Pregunta::where('id_formulario',$id)->get();
 
         foreach($pres as $pre){
 

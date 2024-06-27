@@ -4,11 +4,11 @@
 
 <head>
 
-  @include('uia.header')
+  @include('administradores.header')
 
-  <title>Encuestas</title>
+  <title>formularios</title>
 
-
+`
 
   
 
@@ -26,7 +26,7 @@
 
  
 
-  @include('uia.navigations.navigation')
+  @include('administradores.navigations.navigation')
 
   <!-- /.navbar -->
 
@@ -34,7 +34,7 @@
 
   <!-- Main Sidebar Container -->
 
-  @include('uia.sidebars.sidebar')
+  @include('administradores.sidebars.sidebar')
 
 
 
@@ -64,7 +64,7 @@
 
         <div class="callout callout-warning">
 
-            <h5>Copiar: {{$encuesta->encuesta}} ?</h5>
+            <h5>Copiar: {{$formulario->formulario}} ?</h5>
 
         </div>
 
@@ -89,8 +89,8 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="encuesta">Encuesta</label>                                
-                                    <input required type="text" class="form-control" name="encuesta" placeholder="Encuesta">
+                                    <label for="formulario">Formulario</label>                                
+                                    <input required type="text" class="form-control" name="formulario" placeholder="formulario">
                                 </div>
                             </div>
                         </div>
