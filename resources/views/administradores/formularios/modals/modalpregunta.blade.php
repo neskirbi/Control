@@ -66,7 +66,7 @@
 
                                         <option value="4">Foto</option>                                        
                                         
-                                        <option value="5">Ubicación</option>
+                                        <!--<option value="5">Ubicación</option>-->
 
                                     
 
