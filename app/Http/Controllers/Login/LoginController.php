@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\SuperUsuario;
 use App\Models\Administrador;
-use App\Models\Operador;
+use App\Models\Medico;
+
 class LoginController extends Controller
 {
     function index(){
@@ -51,26 +52,29 @@ class LoginController extends Controller
             return redirect('/');
         }
 
-
-        $opr = Operador::where([
+        $medico = Medico::where([
             'mail' => $request->mail
         ])->first();
 
-        if($opr){
-            if($opr->temp!='' ){
-                if($opr->temp==$request->pass){
-                    return redirect(('newpass/'.$opr->id));
+        if($medico){
+            if($medico->temp!='' ){
+                if($medico->temp==$request->pass){
+                    return redirect(('newpass/'.$medico->id));
                 }else{
                     return redirect('login')->with('error','Contraseña erronea.');
                 }
                 
             }
-            if(!password_verify($request->pass,$opr->pass)){
+            if(!password_verify($request->pass,$medico->pass)){
                 return redirect('login')->with('error', '¡Error de contraseña!');
             }
-            Auth::guard('operadores')->login($opr);
+            Auth::guard('medicos')->login($medico);
             return redirect('/');
         }
+
+
+        
+        
 
         return redirect('login')->with('error', '¡Correo no registrado!');
     }
@@ -86,8 +90,8 @@ class LoginController extends Controller
             return redirect('/');
         }
 
-        if( Auth::guard('operadores')->check()){
-            Auth::guard('operadores')->logout();
+        if( Auth::guard('medicos')->check()){
+            Auth::guard('medicos')->logout();
             return redirect('/');
         }
     }
@@ -97,7 +101,7 @@ class LoginController extends Controller
             return view('login.newpass',['usuario'=>$usuario]);
         }
 
-        if($usuario = Operador::find($id)){
+        if($usuario = Medico::find($id)){
             return view('login.newpass',['usuario'=>$usuario]);
         }
     }
@@ -121,13 +125,13 @@ class LoginController extends Controller
         }
 
 
-        if($opr = Operador::find($id)){            
-            $opr->pass = password_hash($request->pass, PASSWORD_DEFAULT);
-            $opr->temp = '';
-            $opr->save();
+        if($medico = Medico::find($id)){            
+            $medico->pass = password_hash($request->pass, PASSWORD_DEFAULT);
+            $medico->temp = '';
+            $medico->save();
          
             
-            Auth::guard('operadores')->login($opr);
+            Auth::guard('medicos')->login($medico);
 
             return redirect('/');
         }

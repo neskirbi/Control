@@ -2,7 +2,7 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>IOTECH | Ingresar</title>
+  <title>MED | Ingresar</title>
   @include('header')
   <link rel="stylesheet" href="{{asset('css/stylelogin.css')}}">
   

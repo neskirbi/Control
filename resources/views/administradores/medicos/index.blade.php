@@ -119,6 +119,20 @@
                             </div>
 
 
+                            
+
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class='form-group'>
+                                        <label for="telefono">Teléfono</label>
+                                        <input required type="tel" class="form-control" id="telefono" name="telefono" placeholder="Teléfono" value="{{$medico->telefono}}">
+                                    </div>
+                                </div>
+                              
+                            </div>
+
+
 
                             <div class="row">                     
                                                    
@@ -135,8 +149,8 @@
                                    <div class='form-group'>
                                       <label for="temp">Generar Contraseña</label>
                                       <div class="input-group mb-3">
-                                        <div class="input-group-prepend" style="cursor:pointer;" onclick="GenerarPass('{{$medico->id}}');">
-                                          <span class="input-group-text"><i class="fa fa-recycle"></i></span>
+                                        <div class="input-group-prepend" style="cursor:pointer;" >
+                                          <span class="input-group-text"><a class="btn btn-info btn-sm" onclick="GenerarPass('{{$medico->id}}');">  Generar</a></span>
                                         </div>
                                         <input disabled type="text" class="form-control" id="temp" value="{{$medico->temp}}">
                                       </div>
@@ -194,6 +208,16 @@
                                         <input required type="time" class="form-control" id="salida" name="salida" placeholder="Salida" >
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class='form-group'>
+                                        <label for="telefono">Teléfono</label>
+                                        <input required type="tel" class="form-control" id="telefono" name="telefono" placeholder="Teléfono" value="">
+                                    </div>
+                                </div>
+                              
                             </div>
 
 

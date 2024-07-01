@@ -51,6 +51,7 @@ class MedicoController extends Controller
         $medico->apellidos = $request->apellidos;
         $medico->entrada = $request->entrada;
         $medico->salida = $request->salida;
+        $medico->telefono = $request->telefono;
         $medico->mail = $request->mail;        
         $medico->pass = '';
         $medico->token = '';   
@@ -98,6 +99,7 @@ class MedicoController extends Controller
         $medico->apellidos = $request->apellidos;
         $medico->entrada = $request->entrada;
         $medico->salida = $request->salida;
+        $medico->telefono = $request->telefono;
         
         if(isset($request->mail))
         $medico->mail = $request->mail;

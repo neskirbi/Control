@@ -20,7 +20,8 @@ class CreateMedicos extends Migration
             $table->string('apellidos',150);
             $table->string('mail',150)->unique();
             $table->string('entrada',10);            
-            $table->string('salida',10);            
+            $table->string('salida',10);             
+            $table->string('telefono',15);            
             $table->string('pass',150);
             $table->string('token',150);
             $table->timestamps();

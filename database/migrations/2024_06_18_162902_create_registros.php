@@ -15,9 +15,12 @@ class CreateRegistros extends Migration
     {
         Schema::create('registros', function (Blueprint $table) {
             $table->string('id',32)->unique();
-            $table->string('id_operador',32);
-            $table->string('numeconomico',20);
-            $table->string('opcion',2);
+            $table->string('id_medico',32);
+            $table->datetime('checkin');
+            $table->datetime('checkout');
+            $table->string('in',1);
+            $table->string('out',1);
+
             $table->timestamps();
         });
     }

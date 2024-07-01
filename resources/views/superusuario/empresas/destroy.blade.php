@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   @include('superusuario.header')
-  <title>IOTECH | Administradores</title>
+  <title>MED | Administradores</title>
 
   
 </head>

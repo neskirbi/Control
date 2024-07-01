@@ -2,7 +2,7 @@
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
       <img src="{{asset('images/icono1.jpg')}}" alt="IOTECH`" class="brand-image elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">IOTECH</span>
+      <span class="brand-text font-weight-light">Control</span>
     </a>
 
     <!-- Sidebar -->
@@ -13,7 +13,7 @@
           <!--<img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">-->
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{Auth::guard('operadores')->user()->nombres.' '.Auth::guard('operadores')->user()->apellidos}}</a>
+          <a href="#" class="d-block">{{Auth::guard('medicos')->user()->nombres.' '.Auth::guard('medicos')->user()->apellidos}}</a>
         </div>
       </div>
 
@@ -42,10 +42,10 @@
           
 
           <li class="nav-item">
-            <a href="{{url('equiposop')}}" class="nav-link">
-            <i class="nav-icon fa fa-truck" aria-hidden="true"></i>
+            <a href="{{url('check')}}" class="nav-link">
+            <i class="nav-icon fa fa-file-text" aria-hidden="true"></i>
               <p>
-                Equipos
+                Check-In
               </p>
             </a>
           </li>

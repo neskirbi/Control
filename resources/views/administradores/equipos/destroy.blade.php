@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   @include('administradores.header')
-  <title>IOTECH | Operadores</title>
+  <title>MED | Médicos</title>
 
   
 </head>
