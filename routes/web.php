@@ -92,3 +92,5 @@ Route::post('Ingresar', 'App\Http\Controllers\Login\LoginController@Ingresar');
    Route::post('checkin', 'App\Http\Controllers\Medico\CheckinController@Checkin');
 
    Route::post('checkout', 'App\Http\Controllers\Medico\CheckinController@Checkout');
+
+   Route::post('GuardarEncuesta', 'App\Http\Controllers\Medico\CheckinController@GuardarEncuesta');

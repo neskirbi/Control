@@ -731,7 +731,7 @@
 
                             <div class="form-group">
 
-                                <input type="text" class="form-control" name="id_encuesta" value="{{$id_encuesta}}">
+                                <input type="text" class="form-control" name="id_formulario" value="{{$id_formulario}}">
 
                             </div>
 

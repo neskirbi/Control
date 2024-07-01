@@ -1,5 +1,6 @@
 <?php
 
+date_default_timezone_set('America/Mexico_City');
 use App\Models\SuperUsuario;
 use App\Models\Administrador;
 use App\Models\Cliente;
@@ -61,6 +62,42 @@ function GetId(){
     if(Auth::guard('medicos')->check()){
         return Auth::guard('medicos')->user()->id;
     }
+}
+
+
+function GetDateTimeNow(){
+    return date('Y-m-d H:i:s');
+}
+
+function FechaFormateada($fecha){
+       
+    $dias=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+    $meses=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+    $anio=date('Y',strtotime($fecha));
+    $mes=$meses[date('m',strtotime($fecha))-1];
+    $dia=date('d',strtotime($fecha));
+    $diasemana=$dias[date('w',strtotime($fecha))];
+    
+    return $diasemana.' '.$dia.' '.$mes.' '.$anio;
+}
+
+function FechaFormateadaTiempo($fecha){
+       
+    $dias=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+    $meses=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+    $anio=date('Y',strtotime($fecha));
+    $mes=$meses[date('m',strtotime($fecha))-1];
+    $dia=date('d',strtotime($fecha));
+    $diasemana=$dias[date('w',strtotime($fecha))];
+    
+    return $diasemana.' '.$dia.' '.$mes.' '.$anio.' '.date('H:i',strtotime($fecha));
+}
+
+function TiempoFormateado($fecha){
+       
+    
+    
+    return date('H:i:s',strtotime($fecha));
 }
 
 

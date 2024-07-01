@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Registro;
+use App\Models\Formulario;
+use App\Models\Pregunta;
+use App\Models\Inspeccion;
+use App\Models\Respuesta;
 class CheckinController extends Controller
 {
 
@@ -19,7 +23,21 @@ class CheckinController extends Controller
         if(!$registro){
             $registro = new Registro();
         }
-        return view('medicos.checkin.index',['registro'=>$registro]);
+
+        $formulario=Formulario::first();
+        
+
+        $preguntas = array();
+
+        if(! Inspeccion::where('id_medico',GetId())->whereraw("date(created_at) = date(now() )")->first() ){
+            $preguntas=Pregunta::where('id_formulario',$formulario->id)->orderby('orden','asc')->get();
+        }
+
+
+        //return view('inspecciones.inspecciones.create_link',['encuesta'=>$encuesta,'preguntas'=>$preguntas,'id_encuesta'=>$id,'id_inspector'=>$id_inspector]);
+
+
+        return view('medicos.checkin.index',['registro'=>$registro,'preguntas'=>$preguntas,'id_formulario'=>$formulario->id]);
     }
 
     function Checkin(Request $request){
@@ -27,9 +45,16 @@ class CheckinController extends Controller
             $registro = new Registro();
             $registro->id = GetUuid();
             $registro->id_medico=GetId();
-            $registro->checkin = date('Y-m-d H:i:s');
-            $registro->checkout = date('Y-m-d H:i:s');
-            $registro->in = '1';
+            $registro->checkin = GetDateTimeNow();            
+            $registro->latin = $request->lat;            
+            $registro->lonin = $request->lon;  
+
+            $registro->checkout = GetDateTimeNow();
+            $registro->latout = '';            
+            $registro->lonout = '';
+
+            $registro->in = '1';            
+            $registro->out = '0';
             $registro->save();
             return redirect('check')->with('success','Se realizó correctamente el checkin.');
         }else{
@@ -44,6 +69,10 @@ class CheckinController extends Controller
     function Checkout(Request $request){
         $registro =  Registro::where('id_medico',GetId())->whereraw("date(created_at) = date(now())")->first();       
         if($registro){
+           
+            $registro->checkout = GetDateTimeNow();
+            $registro->latout = $request->lat;
+            $registro->lonout = $request->lon;
             $registro->out = '1';
             $registro->save();
 
@@ -53,4 +82,71 @@ class CheckinController extends Controller
         }
         
     }
+
+    function GuardarEncuesta(Request $request){
+
+        //return $request;
+        $id_inspeccion=GetUuid();
+        //Primero se crea la inspeccion y despues las respuestas 
+        $inspeccion=new Inspeccion();
+        
+        $inspeccion->id=$id_inspeccion;
+        $inspeccion->id_medico=GetId();
+        $inspeccion->id_formulario=$request->id_formulario;
+        $inspeccion->save();
+        
+        $preguntas=explode(",",$request->preguntas);
+        
+
+
+        for($i=0;$i<count($preguntas);$i++){
+            $respuesta=new Respuesta();
+
+            $respuesta->id=GetUuid();
+            $respuesta->id_inspeccion=$id_inspeccion;
+            $respuesta->id_pregunta=$preguntas[$i];
+            $respuesta->respuesta=$request->pregunta[$i];
+            $respuesta->save();
+            
+
+            
+        }
+
+
+
+        if(isset($request->fotos) && $request->fotos!=''){
+            $fotos=explode(",",$request->fotos);
+            for($i=0;$i<count($fotos);$i++){
+
+                $nomfoto=GetUuid();
+                
+                if(!GuardarArchivos($request->foto[$i],'/images/inspecciones/evidencia',$nomfoto.'.jpg')){
+                    return Redirect::back()->with('error', 'Error al guardar fotos, comuniquese con soporte.');
+                }
+
+                
+
+                $respuesta=new Respuesta();
+
+                $respuesta->id=GetUuid();
+                $respuesta->id_inspeccion=$id_inspeccion;
+                $respuesta->id_pregunta=$fotos[$i];
+                $respuesta->respuesta=$nomfoto;
+                $respuesta->save();
+                
+
+                
+            }
+        }
+        
+        return redirect('check')->with('success', 'Se guardó la encuesta.');
+
+        
+
+       
+
+
+       
+    }
+
 }

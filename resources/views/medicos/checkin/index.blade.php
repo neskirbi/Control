@@ -33,7 +33,7 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h5 class="card-title"> Checkin</h5>
+                <h5 class="card-title"> Checkin </h5>
                 <div class="card-tools">
          
                 
@@ -48,12 +48,20 @@
                     <form action="checkin" method="post">
                       @csrf
                       <button class="btn btn-success btn-block">Check-in</button>
+                      <div class="row" style="display:none;">
+                        <input data-invalido="true" type="text" name="lat" class="form-control" aria-invalid="false" placeholder="Latitud" id="latitud">
+                        <input data-invalido="true" type="text" name="lon" class="form-control" aria-invalid="false" placeholder="Longitud" id="longitud">
+                      </div>
                     </form>
                                       
                     @elseif($registro->in==1 && $registro->out==0)
                     <form action="checkout" method="post">
                       @csrf
                       <button class="btn btn-danger btn-block">Check-out</button>
+                      <div class="row" style="display:none;">
+                        <input data-invalido="true" type="text" name="lat" class="form-control" aria-invalid="false" placeholder="Latitud" id="latitud">
+                        <input data-invalido="true" type="text" name="lon" class="form-control" aria-invalid="false" placeholder="Longitud" id="longitud">
+                      </div>
                     </form>
                     @else
                     <div class="alert alert-success alert-dismissible" id="ucorrecto" style="">
@@ -65,21 +73,34 @@
                   </div>
                 </div> 
                 
+                <br>
+               
                 
-                <div class="row" style="display:none;">
-                  <div class="col-md-6">
-                    
-                    
-                      <input data-invalido="true" type="text" name="latitud" disabled   class="form-control" aria-invalid="false" placeholder="Latitud" id="latitud">
-                    
-                  </div>
-                  <div class="col-md-6">
-                    
-                      <input data-invalido="true" type="text" name="longitud" disabled   class="form-control" aria-invalid="false" placeholder="Longitud" id="longitud">
-                    
-                  </div>
-                </div>
+                <form action="GuardarEncuesta" method="post">
+                      @csrf
+                      <?php $edit=0;?>
+                      @include('administradores.viewsgenerales.inspecciones.preguntasshow')
 
+                      <div class="row">
+
+                        <div class="col-md-12">
+
+                            <div class="form-group">
+                               @if($preguntas)
+                                <button class="btn btn-info">Guardar</button>
+
+                                @endif
+                            </div>
+
+                        </div>
+
+                      </div>
+
+
+
+                </form>
+
+                 
                 <br>
 
                 <div class="alert alert-danger alert-dismissible" id="uerror" style="display:none;">
