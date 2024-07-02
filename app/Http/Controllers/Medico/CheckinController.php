@@ -29,7 +29,7 @@ class CheckinController extends Controller
 
         $preguntas = array();
 
-        if(! Inspeccion::where('id_medico',GetId())->whereraw("date(created_at) = date(now() )")->first() ){
+        if(! Inspeccion::where('id_medico',GetId())->whereraw("date(created_at) = date(now())")->first() ){
             $preguntas=Pregunta::where('id_formulario',$formulario->id)->orderby('orden','asc')->get();
         }
 

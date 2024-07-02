@@ -11,7 +11,7 @@ function Url(){
     if(window.location.origin.includes('localhost') || window.location.origin.includes('192.168')){
         return window.location.origin+'/control/public/';
     }else{
-       return window.location.origin+'/';
+       return window.location.origin+'/control/public/';
     }
 }
 
@@ -27,6 +27,7 @@ function Cambio(_this,nombre){
 
 function GenerarPass(id){
     
+    
     $.ajax({
         headers: {    },
         async:true,
@@ -36,7 +37,7 @@ function GenerarPass(id){
     }).done(function(data) {
         console.log(data);
         if(data.status==1){
-            $('#temp').val(data[0].temp);            
+            $('#temp'+id).val(data[0].temp);            
         }else{
             alert('Error al generar la contraseña.');
         }

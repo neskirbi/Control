@@ -152,7 +152,7 @@
                                         <div class="input-group-prepend" style="cursor:pointer;" >
                                           <span class="input-group-text"><a class="btn btn-info btn-sm" onclick="GenerarPass('{{$medico->id}}');">  Generar</a></span>
                                         </div>
-                                        <input disabled type="text" class="form-control" id="temp" value="{{$medico->temp}}">
+                                        <input disabled type="text" class="form-control" id="temp{{$medico->id}}" value="{{$medico->temp}}">
                                       </div>
                                    </div>
                                </div> 
