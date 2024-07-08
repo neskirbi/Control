@@ -8,10 +8,10 @@ function EscalaRojos(){
 
 
 function Url(){
-    if(window.location.origin.includes('localhost') || window.location.origin.includes('192.168')){
+    if(window.location.pathname.includes('public')){
         return window.location.origin+'/control/public/';
     }else{
-       return window.location.origin+'/control/public/';
+        return window.location.origin;
     }
 }
 
@@ -26,8 +26,7 @@ function Cambio(_this,nombre){
 }
 
 function GenerarPass(id){
-    
-    
+
     $.ajax({
         headers: {    },
         async:true,
@@ -35,7 +34,6 @@ function GenerarPass(id){
         url:  Url()+"api/GenerarPass",
         data:{id:id}
     }).done(function(data) {
-        console.log(data);
         if(data.status==1){
             $('#temp'+id).val(data[0].temp);            
         }else{
@@ -112,4 +110,17 @@ function GenerarCodigo(_this){
     }).fail(function() {
         
     });
+}
+
+
+
+/**
+ * Elimina todos los marcadores de un mapa
+ */
+function DeleteMarkers() {
+    //Loop through all the markers and remove
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+    }
+    markers = [];
 }

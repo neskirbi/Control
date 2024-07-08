@@ -228,9 +228,7 @@
                                        <label for="mail">Correo</label>
                                        <input required type="mail" class="form-control" id="mail" name="mail" placeholder="Correo">
                                    </div>
-                               </div>            
-                               
-                            
+                               </div>  
                              
                                
                             </div>   

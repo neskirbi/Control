@@ -42,6 +42,16 @@
           
  
           <li class="nav-item">
+            <a href="{{url('geocercas')}}" class="nav-link">
+            <i class="nav-icon fa fa-map-marker" aria-hidden="true"></i>
+              <p>
+                Geocercas
+              </p>
+            </a>
+          </li>
+
+
+          <li class="nav-item">
             <a href="{{url('formularios')}}" class="nav-link">
             <i class="nav-icon fa fa-tablet" aria-hidden="true"></i>
               <p>

@@ -1,6 +1,6 @@
 <?php
 
-date_default_timezone_set('America/Mexico_City');
+
 use App\Models\SuperUsuario;
 use App\Models\Administrador;
 use App\Models\Cliente;
@@ -14,7 +14,7 @@ function Memoria(){
 }
 
 function Version(){
-    return 8;
+    return 9;
 }
 
 function GetUuid(){
@@ -100,6 +100,14 @@ function TiempoFormateado($fecha){
     return date('H:i:s',strtotime($fecha));
 }
 
+function GetLatMexico(){
+    return 20.248882446801847;
+}
+
+
+function GetLonMexico(){
+    return -101.45472227050904;
+}
 
 
 ?>

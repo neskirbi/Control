@@ -61,6 +61,9 @@ Route::post('Ingresar', 'App\Http\Controllers\Login\LoginController@Ingresar');
   */
 
 
+  Route::resource('geocercas', 'App\Http\Controllers\Administrador\GeocercaController');
+
+
   Route::resource('equipos', 'App\Http\Controllers\Administrador\EquipoController');
   
 
