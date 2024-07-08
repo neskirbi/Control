@@ -57,7 +57,7 @@
                         <button type="submit" class="btn btn-info btn-sm float-right">Buscar</button>
                         
                         <div class="dropdown-divider"></div>
-                        <a class="btn btn-success btn-block" href="{{url('geocercas')}}/c"><i class="fa fa-plus"></i> Agregar</a>
+                        <a class="btn btn-success btn-block" href="{{url('geocercas')}}/create"><i class="fa fa-plus"></i> Agregar</a>
                       </form>
                       
                     </div>
