@@ -58,7 +58,8 @@ class GeocercaController extends Controller
      */
     public function show($id)
     {
-        //
+        $geocerca = Geocerca::find($id);
+        return view('administradores.geocercas.show',['geocerca'=>$geocerca]);
     }
 
     /**
@@ -81,7 +82,15 @@ class GeocercaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $geocerca = Geocerca::find($id);
+        
+        
+        $geocerca->nombre = $request->nombre;
+        $geocerca->lat = $request->lat;
+        $geocerca->lon = $request->lon;
+        
+        $geocerca->save();
+        return redirect('geocercas/'.$geocerca->id)->with('geocercas','Datos Guardados.');
     }
 
     /**

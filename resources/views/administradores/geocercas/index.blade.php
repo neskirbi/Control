@@ -40,7 +40,7 @@
                 <div class="card-tools">
                   <div class="btn-group">
                     <button type="button" class="btn btn-default btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Filtros <i class="fa fa-sliders" aria-hidden="true"></i>
+                      Opciones <i class="fa fa-sliders" aria-hidden="true"></i>
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" style="width:300px;">
                       <form class="px-4 py-3" action="{{url('geocercas')}}" method="GET">

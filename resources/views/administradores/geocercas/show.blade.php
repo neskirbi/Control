@@ -40,12 +40,13 @@
                 
               </div>
               <div class="card-body">
-              <form action="{{url('geocercas')}}" method="POST" enctype="multipart/form-data">           
+              <form action="{{url('geocercas')}}/{{$geocerca->id}}" method="POST" enctype="multipart/form-data">           
               @csrf     
+              @method('put')
               <div class="row">
                 <div class="col-md-12">
                   <div class="form-group">
-                    <input required  type="text" class="form-control" id="nombre" name="nombre" placeholder="Lugar"> 
+                    <input required  type="text" class="form-control" id="nombre" name="nombre" placeholder="Lugar" value="{{$geocerca->nombre}}"> 
                   </div>
                 </div>
               </div>  
@@ -58,19 +59,26 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <input required  type="text" class="form-control" id="lat" name="lat" placeholder="Lat"> 
+                    <input required  type="text" class="form-control" id="lat" name="lat" placeholder="Lat" value="{{$geocerca->lat}}"> 
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <input required  type="text" class="form-control" id="lon" name="lon" placeholder="Lon"> 
+                    <input required  type="text" class="form-control" id="lon" name="lon" placeholder="Lon" value="{{$geocerca->lon}}"> 
                   </div>
                 </div>
               </div>      
-                  
+
               <div class="row">
                 <div class="col-md-12">
-                  <button class="btn btn-info">Guardar</button>
+                <input required  type="text" class="form-control" id="rad" name="rad" placeholder="Lon" value=""> 
+                </div>
+              </div>
+                  
+              <br>
+              <div class="row">
+                <div class="col-md-12">
+                  <button class="btn btn-info">Actualizar</button>
                 </div>
               </div>
                     
@@ -150,12 +158,15 @@
 
 <script>
 
+    var xx=$('#lat').val();
+    var yy=$('#lon').val();
+    
     var markers = [];
     var marker;
     var geocoder;
-    function initMap(zoom=4) {
-        var initialLat = $('#latitud').val()*1;
-        var initialLong = $('#longitud').val()*1;
+    function initMap(zoom=15) {
+        var initialLat = $('#lat').val()*1;
+        var initialLong = $('#lon').val()*1;
         initialLat = initialLat?initialLat:{{GetLatMexico()}};
         initialLong = initialLong?initialLong:{{GetLonMexico()}};
 
@@ -176,7 +187,7 @@
         geocoder = new google.maps.Geocoder();
         // Create the initial InfoWindow.
         let infoWindow = new google.maps.InfoWindow({
-          content: "Seleccione una ubicación. ",
+          content: $('#nombre').val(),
           position: myLatlng,
         });
 
@@ -194,8 +205,10 @@
               position: mapsMouseEvent.latLng,
             });
             var coordenadas=mapsMouseEvent.latLng.toJSON();
-            $('#lat').val(coordenadas.lat);
-            $('#lon').val(coordenadas.lng);
+            $('#lat').val(coordenadas.lat); 
+            $('#lon').val(coordenadas.lng); 
+            console.log('Lat: '+xx+' Lon: '+yy);
+            $('#rad').val(Math.sqrt(Math.pow((coordenadas.lat-xx), 2) + Math.pow((coordenadas.lng-yy), 2)) );
             const coorobra = { lat:  coordenadas.lat*1, lng: coordenadas.lng*1 };
             marker = new google.maps.Marker({
                 position: coorobra,
