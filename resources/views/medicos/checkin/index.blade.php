@@ -41,6 +41,14 @@
               </div>
 
               <div class="card-body">
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div id="map" style=" height: 350px; width:100%;"></div>
+                  </div>
+                </div>  
+
+                <br>
                 <div class="row" id="checkin" style="display:none;">
                   
                   <div class="col-md-12"> 
@@ -87,7 +95,7 @@
 
                             <div class="form-group">
                                @if($preguntas)
-                                <button class="btn btn-info">Guardar</button>
+                                <button class="btn btn-info btn-block">Guardar</button>
 
                                 @endif
                             </div>
@@ -195,6 +203,7 @@
             $("#latitud").val(ubicacion.coords.latitude);
             $("#longitud").val(ubicacion.coords.longitude);                                            
             $('#uerror').hide();
+            initMapa(ubicacion.coords.latitude,ubicacion.coords.longitude)
             //$('#ucorrecto').show();           
             $('#checkin').show();
         }
@@ -218,6 +227,78 @@
 
     funcionInit();
         
-</script>    
+</script> 
+
+<script>
+  
+
+    var markers = HtmltoJson('{{$marcadores}}');
+    function initMapa(lat,lon) {
+      //console.log(markers);
+      var myLatlng = { lat:  parseFloat(lat), lng: parseFloat(lon) };
+      var map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 17,
+        center: myLatlng,
+      });
+
+
+      imagenmed = {
+            url: '{{asset("images/iconos/maps/med.png")}}',
+            // Este marcador tiene 20 pixeless de ancho por 32 pixeles de alto.
+            scaledSize: new google.maps.Size(35, 50),
+            // El origen para esta imagen es (0, 0).
+            origin: new google.maps.Point(0, 0),
+            // El ancla para esa imagen es la base del asta bandera en (0, 32).
+            anchor: new google.maps.Point(0, 32)
+        };
+
+     
+      var marker = new google.maps.Marker({
+          position: myLatlng,
+          title: 'Yo',
+          icon: imagenmed
+      });
+      
+      
+      marker.setMap(map);
+
+      
+      for(var i=0;i< markers.length ; i++){
+
+        
+        var  myLatlng = { lat:  parseFloat(markers[i].lat), lng: parseFloat(markers[i].lon) };
+        var image = {
+          url: '{{asset("images/iconos/maps/hospital.png")}}',
+          // Este marcador tiene 20 pixeless de ancho por 32 pixeles de alto.
+          scaledSize: new google.maps.Size(80, 90),
+          // El origen para esta imagen es (0, 0).
+          origin: new google.maps.Point(0, 0),
+          // El ancla para esa imagen es la base del asta bandera en (0, 32).
+          anchor: new google.maps.Point(0, 32)
+        };
+        var marker = new google.maps.Marker({
+            position: myLatlng,
+            title: markers[i].obra,
+            icon: image
+        });
+
+         // Create the initial InfoWindow.
+        /*let infoWindow = new google.maps.InfoWindow({
+          content:markers[i].obra,
+          position: myLatlng,
+        });
+        
+        infoWindow.open(map,marker);*/
+
+        // To add the marker to the map, call setMap();
+
+     
+        marker.setMap(map);
+      }
+      
+    }
+      
+    </script>
+@include('MapsApi')
 </body>
 </html>

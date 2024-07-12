@@ -4,11 +4,16 @@ namespace App\Http\Controllers\Administrador;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\Geocerca;
 
 class GeocercaController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('adlog');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -58,7 +63,7 @@ class GeocercaController extends Controller
      */
     public function show($id)
     {
-        $geocerca = Geocerca::find($id);
+        $geocerca = Geocerca::select('id','nombre','lat','lon',DB::RAW("SQRT(pow(lat,2)+pow(lon,2)) as rad"))->where('id',$id)->first();
         return view('administradores.geocercas.show',['geocerca'=>$geocerca]);
     }
 

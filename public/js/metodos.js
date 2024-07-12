@@ -124,3 +124,15 @@ function DeleteMarkers() {
     }
     markers = [];
 }
+
+
+
+function HtmltoJson(string){
+    string=string.replaceAll(/[\r\n]/g, "");
+    return JSON.parse($('<textarea/>').html(string).text());
+}
+function HtmltoArray(string){
+    
+    string=string.replaceAll(/[\r\n]/g, "");
+    return ($('<textarea/>').html(string).text());
+}

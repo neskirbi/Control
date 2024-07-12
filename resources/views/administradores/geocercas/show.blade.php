@@ -69,11 +69,7 @@
                 </div>
               </div>      
 
-              <div class="row">
-                <div class="col-md-12">
-                <input required  type="text" class="form-control" id="rad" name="rad" placeholder="Lon" value=""> 
-                </div>
-              </div>
+             
                   
               <br>
               <div class="row">
@@ -207,8 +203,6 @@
             var coordenadas=mapsMouseEvent.latLng.toJSON();
             $('#lat').val(coordenadas.lat); 
             $('#lon').val(coordenadas.lng); 
-            console.log('Lat: '+xx+' Lon: '+yy);
-            $('#rad').val(Math.sqrt(Math.pow((coordenadas.lat-xx), 2) + Math.pow((coordenadas.lng-yy), 2)) );
             const coorobra = { lat:  coordenadas.lat*1, lng: coordenadas.lng*1 };
             marker = new google.maps.Marker({
                 position: coorobra,

@@ -10,6 +10,7 @@ use App\Models\Formulario;
 use App\Models\Pregunta;
 use App\Models\Inspeccion;
 use App\Models\Respuesta;
+use App\Models\Geocerca;
 class CheckinController extends Controller
 {
 
@@ -19,6 +20,7 @@ class CheckinController extends Controller
 
 
     function index(){
+        $marcadores = Geocerca::get();
         $registro = Registro::where('id_medico',GetId())->whereraw("date(created_at) = date(now())")->first();
         if(!$registro){
             $registro = new Registro();
@@ -37,7 +39,9 @@ class CheckinController extends Controller
         //return view('inspecciones.inspecciones.create_link',['encuesta'=>$encuesta,'preguntas'=>$preguntas,'id_encuesta'=>$id,'id_inspector'=>$id_inspector]);
 
 
-        return view('medicos.checkin.index',['registro'=>$registro,'preguntas'=>$preguntas,'id_formulario'=>$formulario->id]);
+        return view('medicos.checkin.index',['registro'=>$registro,'preguntas'=>$preguntas,
+        'id_formulario'=>$formulario->id,
+        'marcadores'=>$marcadores]);
     }
 
     function Checkin(Request $request){
