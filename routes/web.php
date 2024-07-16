@@ -61,6 +61,9 @@ Route::post('Ingresar', 'App\Http\Controllers\Login\LoginController@Ingresar');
   */
 
 
+  Route::resource('registros', 'App\Http\Controllers\Administrador\RegistroController');
+  Route::get('minimapa/{lat}/{lon}', 'App\Http\Controllers\Administrador\RegistroController@MiniMapa');
+
   Route::resource('geocercas', 'App\Http\Controllers\Administrador\GeocercaController');
 
 

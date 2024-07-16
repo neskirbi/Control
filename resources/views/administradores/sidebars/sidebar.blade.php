@@ -42,6 +42,16 @@
           
  
           <li class="nav-item">
+            <a href="{{url('registros')}}" class="nav-link">
+            <i class="nav-icon fa fa-list" aria-hidden="true"></i>
+              <p>
+                Registros
+              </p>
+            </a>
+          </li>
+
+
+          <li class="nav-item">
             <a href="{{url('geocercas')}}" class="nav-link">
             <i class="nav-icon fa fa-map-marker" aria-hidden="true"></i>
               <p>
