@@ -27,6 +27,8 @@ class CreateRegistros extends Migration
 
             $table->string('in',1)->default(0);
             $table->string('out',1)->default(0);
+            
+            $table->integer('tarde')->default(0);
 
             $table->timestamps();
         });

@@ -83,7 +83,7 @@
                 
                 <br>
                
-                
+                @if($registro->in==1)
                 <form action="GuardarEncuesta" method="post">
                       @csrf
                       <?php $edit=0;?>
@@ -108,6 +108,8 @@
 
                 </form>
 
+                @endif
+                
                  
                 <br>
 

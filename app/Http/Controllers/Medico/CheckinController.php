@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Medico;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\Registro;
 use App\Models\Formulario;
@@ -11,6 +12,7 @@ use App\Models\Pregunta;
 use App\Models\Inspeccion;
 use App\Models\Respuesta;
 use App\Models\Geocerca;
+use App\Models\Medico;
 class CheckinController extends Controller
 {
 
@@ -45,6 +47,12 @@ class CheckinController extends Controller
     }
 
     function Checkin(Request $request){
+        //return Geocerca::whereraw(" SQRT(POW(lat-(".$request->lat."),2)+POW(lon-(".$request->lon."),2)) <= (select distancia from configuraciones)")->count();
+        if(0==Geocerca::whereraw(" SQRT(POW(lat-(".$request->lat."),2)+POW(lon-(".$request->lon."),2)) <= (select distancia from configuraciones)")->count()){
+            return redirect('check')->with('error','No está cerca de ninguna UM.');
+        }
+
+        $medico = Medico::select(DB::RAW("(time(now()) > entrada) as tarde"))->where('id' ,GetId())->first();
         if(!Registro::where('id_medico',GetId())->whereraw("date(created_at) = date(now())")->first()){
             $registro = new Registro();
             $registro->id = GetUuid();
@@ -57,8 +65,10 @@ class CheckinController extends Controller
             $registro->latout = '';            
             $registro->lonout = '';
 
+
             $registro->in = '1';            
             $registro->out = '0';
+            $registro->tarde = $medico->tarde;
             $registro->save();
             return redirect('check')->with('success','Se realizó correctamente el checkin.');
         }else{
