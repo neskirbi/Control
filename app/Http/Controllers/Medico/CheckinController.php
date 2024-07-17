@@ -47,8 +47,8 @@ class CheckinController extends Controller
     }
 
     function Checkin(Request $request){
-        //return Geocerca::whereraw(" SQRT(POW(lat-(".$request->lat."),2)+POW(lon-(".$request->lon."),2)) <= (select distancia from configuraciones)")->count();
-        if(0==Geocerca::whereraw(" SQRT(POW(lat-(".$request->lat."),2)+POW(lon-(".$request->lon."),2)) <= (select distancia from configuraciones)")->count()){
+        $geocerca = Geocerca::whereraw(" SQRT(POW(lat-(".$request->lat."),2)+POW(lon-(".$request->lon."),2)) <= (select distancia from configuraciones)")->first();
+        if(!$geocerca){
             return redirect('check')->with('error','No está cerca de ninguna UM.');
         }
 
@@ -57,6 +57,7 @@ class CheckinController extends Controller
             $registro = new Registro();
             $registro->id = GetUuid();
             $registro->id_medico=GetId();
+            $registro->id_geocerca=$geocerca->id;
             $registro->checkin = GetDateTimeNow();            
             $registro->latin = $request->lat;            
             $registro->lonin = $request->lon;  

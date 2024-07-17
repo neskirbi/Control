@@ -42,12 +42,22 @@
 
               <div class="card-body">
 
+                @if($registro->in==0 || $registro->out==0)
                 <div class="row">
                   <div class="col-md-12">
                     <div id="map" style=" height: 350px; width:100%;"></div>
                   </div>
                 </div>  
+                @endif
 
+                @if($registro->in==1 && $registro->out==1)
+                <div class="alert alert-success alert-dismissible" id="ucorrecto" style="">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  <h5><i class="icon fas fa-check"></i> Correcto!</h5>
+                  El registro de hoy ya se realizó correctamente.
+                </div>
+ 
+                @endif
                 <br>
                 <div class="row" id="checkin" style="display:none;">
                   
@@ -71,12 +81,7 @@
                         <input data-invalido="true" type="text" name="lon" class="form-control" aria-invalid="false" placeholder="Longitud" id="longitud">
                       </div>
                     </form>
-                    @else
-                    <div class="alert alert-success alert-dismissible" id="ucorrecto" style="">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <h5><i class="icon fas fa-check"></i> Correcto!</h5>
-                        El registro de hoy ya se realizó correctamente.
-                    </div>
+                   
                     @endif
                   </div>
                 </div> 

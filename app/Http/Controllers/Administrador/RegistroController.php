@@ -16,12 +16,19 @@ class RegistroController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $filtros)
     {
-        $registros = Registro::select('medicos.nombres','medicos.apellidos',DB::RAW("time(registros.checkin) as checkin"),
-        DB::RAW("time(registros.checkout) as checkout"),'registros.latin','registros.lonin')
-        ->join('medicos','medicos.id','registros.id_medico')->paginate(20);
-        return view('administradores.registros.index',['registros'=>$registros]);
+        $fecha = isset($filtros->fecha) ? $filtros->fecha : date('Y-m-d');
+
+        $registros = Registro::select('medicos.nombres','medicos.apellidos','registros.tarde',DB::RAW("time(registros.checkin) as checkin"),
+        DB::RAW("time(registros.checkout) as checkout"),'registros.latin','registros.lonin','geocercas.nombre')
+        ->join('geocercas','geocercas.id','registros.id_geocerca')
+        ->join('medicos','medicos.id','registros.id_medico')
+        ->whereraw("date(registros.checkin) = '".$fecha."'")
+        ->orderby('checkin','asc')
+        ->paginate(20);
+
+        return view('administradores.registros.index',['registros'=>$registros,'filtros'=>$filtros]);
     }
 
     /**

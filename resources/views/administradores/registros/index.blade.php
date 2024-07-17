@@ -45,7 +45,7 @@
                       <div class="col-md-3">
                         
                         <form action="{{url('registros')}}" id="formfecha">
-                          <input onchange="" type="date" class="form-control" name="fecha" id="fecha"  @if(isset($filtros->fecha)) value="{{$filtros->fecha}}" @else value="{{date('Y-m-d')}}" @endif >
+                          <input onchange="RegistrosFecha();" type="date" class="form-control" name="fecha" id="fecha"  @if(isset($filtros->fecha)) value="{{$filtros->fecha}}" @else value="{{date('Y-m-d')}}" @endif >
                         </form>
                           
                           
@@ -98,7 +98,12 @@
                     <div class="card">
                         <div class="card-body">
                           
-                         
+                          @if(!$registro->tarde)
+                          <small class="badge badge-success float-right"><i class="fa fa-check" aria-hidden="true"></i> A tiempo</small>
+                          @else
+                          <small class="badge badge-danger float-right"><i class="fa fa-times" aria-hidden="true"></i> Tarde</small>
+                          @endif
+                          <br>
                           
                           <div class="row">
                             
@@ -106,15 +111,17 @@
                               <iframe width="100%" src="{{url('minimapa')}}/{{$registro->latin}}/{{$registro->lonin}}" frameborder="0"></iframe>
                             </div>
                             <div class="col-md-7">
-                                @if($registro->tarde)
-                                <small class="badge badge-success float-right"><i class="fa fa-check" aria-hidden="true"></i> A tiempo</small>
-                                @else
-                                <small class="badge badge-danger float-right"><i class="fa fa-times" aria-hidden="true"></i> Tarde</small>
-                                @endif
-                                <br>
+                                
                               <div class="row">
                                 <div class="col-md-12">                                
-                                  <h5 class="card-title" title="{{$registro->nombres.' '.$registro->apellidos}}"><b>{{$registro->nombres.' '.$registro->apellidos}}</b></h5>
+                                  <h5 class="card-title" title="{{$registro->nombres.' '.$registro->apellidos}}"><b>Nombre: </b>{{$registro->nombres.' '.$registro->apellidos}}</h5>
+                                
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-md-12">                                
+                                  <h5 class="card-title" title="{{$registro->nombre}}"><b>Locación: </b>{{$registro->nombre}}</h5>
                                 
                                 </div>
                               </div>
@@ -123,11 +130,11 @@
 
                               <div class="row">
                                                     
-                                <div class="col-md-3" >
+                                <div class="col-md-4" >
                                   <b>Entrada:</b> {{$registro->checkin}}
                                 </div>   
 
-                                <div class="col-md-3" > 
+                                <div class="col-md-4" > 
                                   <b>Salida:</b> {{$registro->checkin}}
                                 </div>                        
                               
@@ -218,6 +225,10 @@
 @include('administradores.geocercas.modals.nueva')
 
 <script>
+
+  function RegistrosFecha(){
+    $('#formfecha').submit();
+  }
 
     var markers = [];
     var marker;
