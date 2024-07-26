@@ -62,6 +62,7 @@ Route::post('Ingresar', 'App\Http\Controllers\Login\LoginController@Ingresar');
 
 
   Route::resource('registros', 'App\Http\Controllers\Administrador\RegistroController');
+  Route::resource('faltas', 'App\Http\Controllers\Administrador\FaltaController');
   Route::get('minimapa/{lat}/{lon}', 'App\Http\Controllers\Administrador\RegistroController@MiniMapa');
 
   Route::resource('geocercas', 'App\Http\Controllers\Administrador\GeocercaController');
@@ -84,7 +85,8 @@ Route::post('Ingresar', 'App\Http\Controllers\Login\LoginController@Ingresar');
   
 
   Route::resource('medicos', 'App\Http\Controllers\Administrador\MedicoController');
-  
+  Route::post('NuevoPeriodo/{id}', 'App\Http\Controllers\Administrador\MedicoController@NuevoPeriodo');
+  Route::post('EliminarPeriodo/{id}', 'App\Http\Controllers\Administrador\MedicoController@EliminarPeriodo');
 
   Route::get('BorrarMedico/{id}', 'App\Http\Controllers\Administrador\MedicoController@BorrarMedico');
   

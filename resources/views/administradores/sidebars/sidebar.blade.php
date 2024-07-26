@@ -45,7 +45,16 @@
             <a href="{{url('registros')}}" class="nav-link">
             <i class="nav-icon fa fa-list" aria-hidden="true"></i>
               <p>
-                Registros
+                Asistencias
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{url('faltas')}}" class="nav-link">
+            <i class="nav-icon fa fa-times" aria-hidden="true"></i>
+              <p>
+                Faltas
               </p>
             </a>
           </li>

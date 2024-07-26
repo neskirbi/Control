@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Administrador;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Medico;
+use App\Models\Periodo;
+use Redirect;
 
 class MedicoController extends Controller
 {
@@ -67,7 +69,10 @@ class MedicoController extends Controller
      */
     public function show($id)
     {
-        //
+        $medico = Medico::find($id);
+        $periodos = Periodo::where('id_medico',$id)->orderby('fini','desc')->get();
+
+        return view('administradores.medicos.show',['medico'=>$medico,'periodos'=>$periodos]);
     }
 
     /**
@@ -128,4 +133,24 @@ class MedicoController extends Controller
 
         return view('administradores.medicos.destroy',['medico'=>$medico]);
     }
+
+
+    function NuevoPeriodo(Request $request,$id){
+        $periodo = new Periodo();
+        $periodo->id = GetUuid();
+        $periodo->id_medico = $id;
+        $periodo->fini = $request->fini;
+        $periodo->ffin = $request->ffin;
+        $periodo->save();
+        return redirect('medicos/'.$id)->with('success','Período agregado.');
+    }
+
+
+    function EliminarPeriodo($id){
+        $periodo = Periodo::find($id);
+        $periodo->delete();
+        return Redirect::back()->with('danger','Período borrado.');
+    }
+
+    
 }

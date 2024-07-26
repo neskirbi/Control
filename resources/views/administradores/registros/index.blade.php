@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   @include('administradores.header')
-  <title>MED | Geocercas</title>
+  <title>MED | Registros</title>
 
   
 </head>

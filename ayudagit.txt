@@ -7,7 +7,7 @@ php artisan migrate:refresh
 *Refresca solo una tabla en base de datos
 *Cambiar tabla por el nombre de la migracion que se creo
 */
-php artisan migrate:refresh --path=/database/migrations/2024_06_18_162902_create_registros.php
+php artisan migrate:refresh --path=/database/migrations/2024_07_26_133527_create_faltas.php
 .php
 
 /*

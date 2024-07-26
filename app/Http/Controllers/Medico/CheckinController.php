@@ -13,6 +13,7 @@ use App\Models\Inspeccion;
 use App\Models\Respuesta;
 use App\Models\Geocerca;
 use App\Models\Medico;
+use App\Models\Falta;
 class CheckinController extends Controller
 {
 
@@ -47,6 +48,7 @@ class CheckinController extends Controller
     }
 
     function Checkin(Request $request){
+        
         $geocerca = Geocerca::whereraw(" SQRT(POW(lat-(".$request->lat."),2)+POW(lon-(".$request->lon."),2)) <= (select distancia from configuraciones)")->first();
         if(!$geocerca){
             return redirect('check')->with('error','No está cerca de ninguna UM.');
@@ -54,6 +56,13 @@ class CheckinController extends Controller
 
         $medico = Medico::select(DB::RAW("(time(now()) > entrada) as tarde"))->where('id' ,GetId())->first();
         if(!Registro::where('id_medico',GetId())->whereraw("date(created_at) = date(now())")->first()){
+
+            $falta = Falta::where('id_medico',GetId())->whereraw('date(created_at) = date(now())')->first();
+            $falta = Falta::find($falta->id);
+            $falta->delete();
+            
+
+
             $registro = new Registro();
             $registro->id = GetUuid();
             $registro->id_medico=GetId();
@@ -71,6 +80,9 @@ class CheckinController extends Controller
             $registro->out = '0';
             $registro->tarde = $medico->tarde;
             $registro->save();
+
+            
+
             return redirect('check')->with('success','Se realizó correctamente el checkin.');
         }else{
             return redirect('check')->with('error','El checkin ya se habia realizado.');
@@ -154,11 +166,7 @@ class CheckinController extends Controller
             }
         }
         
-        return redirect('check')->with('success', 'Se guardó la encuesta.');
-
-        
-
-       
+        return redirect('check')->with('success', 'Se guardó la encuesta.');      
 
 
        

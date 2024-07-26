@@ -158,7 +158,20 @@
                                </div> 
                                
                             </div>   
-                            <button type="submit" class="btn btn-info float-right">Guardar</button>                     
+                            <div class="row">
+                              <div class="col-md-3">
+                                <a href="{{url('medicos')}}/{{$medico->id}}" class="btn btn-info btn-block"> <i class="fa fa-calendar-check-o" aria-hidden="true"></i> Periodos</a>
+                              </div>
+                              <div class="col-md-3">
+                                
+                              </div>
+                              <div class="col-md-3">
+                                
+                              </div>
+                              <div class="col-md-3">
+                                <button type="submit" class="btn btn-info btn-block"> <i class="nav-icon fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
+                              </div>
+                            </div>                     
                           </form>
                         </div>
                              

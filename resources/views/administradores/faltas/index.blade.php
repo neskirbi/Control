@@ -1,4 +1,4 @@
-`<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   @include('administradores.header')
@@ -31,62 +31,127 @@
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         
+
         <div class="row">
           <div class="col-12">
             <div class="card card-primary card-outline card-outline-tabs">
               <div class="card-header">
-              <h3 class="card-title"> <i class="nav-icon fa fa-globe" aria-hidden="true"></i> Geocercas</h3>
+              <h3 class="card-title"> <i class="nav-icon fa fa-list" aria-hidden="true"></i> Faltas</h3>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card-tools" >
+                    <div class="row">
+                      <div class="col-md-7"></div>
+                      <div class="col-md-3">
+                        
+                        <form action="{{url('faltas')}}" id="formfecha">
+                          <input onchange="RegistrosFecha();" type="date" class="form-control" name="fecha" id="fecha"  @if(isset($filtros->fecha)) value="{{$filtros->fecha}}" @else value="{{date('Y-m-d')}}" @endif >
+                        </form>
+                          
+                          
+                      </div>
+                      <div class="col-md-2">
+                        <!--<div class="btn-group float-right">
+                          <button type="button" class="btn btn-default btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Opciones <i class="fa fa-sliders" aria-hidden="true"></i>
+                          </button>
+                          <div class="dropdown-menu dropdown-menu-right" style="width:300px;">
+                            <form class="px-4 py-3" action="{{url('geocercas')}}" method="GET">
+                            
+                              <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text"><i class="far fa-building"></i></span>
+                                </div>
+                                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Lugar" @if(isset($filtros->nombres)) value="{{$filtros->nombres}}" @endif >
+                              </div>
+
+                              <div class="dropdown-divider"></div>
+                              <a href="{{url('geocercas')}}" class="btn btn-default btn-sm">Limpiar</a>
+                              <button type="submit" class="btn btn-info btn-sm float-right">Buscar</button>
+                              
+                              <div class="dropdown-divider"></div>
+                              <a class="btn btn-success btn-block" href="{{url('geocercas')}}/create"><i class="fa fa-plus"></i> Agregar</a>
+                            </form>
+                            
+                          </div>
+                        </div>--> 
+                      </div>
+                      
+
+                                    
+                    </div>              
+
+
+                  </div>
+                </div>
+              </div>
                 
+
+                  
                 
               </div>
               <div class="card-body">
-              <form action="{{url('geocercas')}}/{{$geocerca->id}}" method="POST" enctype="multipart/form-data">           
-              @csrf     
-              @method('put')
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <input required  type="text" class="form-control" id="nombre" name="nombre" placeholder="Lugar" value="{{$geocerca->nombre}}"> 
-                  </div>
-                </div>
-              </div>  
-              <div class="row">
-                <div class="col-md-12">
-                  <div id="map" style=" height: 350px; width:100%;"></div>
-                </div>
-              </div>  
-              <br>             
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <input required  type="text" class="form-control" id="lat" name="lat" placeholder="Lat" value="{{$geocerca->lat}}"> 
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <input required  type="text" class="form-control" id="lon" name="lon" placeholder="Lon" value="{{$geocerca->lon}}"> 
-                  </div>
-                </div>
-              </div>      
+                @foreach($faltas as $falta)
 
-             
-                  
-              <br>
-              <div class="row">
-                <div class="col-md-12">
-                  <button class="btn btn-info">Actualizar</button>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                          
+                          <small class="badge badge-danger float-right"><i class="fa fa-times" aria-hidden="true"></i> Falta</small>
+                          <br>
+                          
+                          <div class="row">
+                           
+                            <div class="col-md-7">
+                                
+                              <div class="row">
+                                <div class="col-md-12">                                
+                                  <h5 class="card-title" title="{{$falta->nombres.' '.$falta->apellidos}}"><b>Nombre: </b>{{$falta->nombres.' '.$falta->apellidos}}</h5>
+                                
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-md-12">                                
+                                  
+                                
+                                </div>
+                              </div>
+                             
+                              <br> <br> 
+
+                              <div class="row">
+                                                    
+                                <div class="col-md-4" >
+                                  <b>Entrada:</b> {{$falta->entrada}}
+                                </div>   
+
+                                <div class="col-md-4" > 
+                                  <b>Salida:</b> {{$falta->salida}}
+                                </div>                        
+                              
+                              </div>
+                            </div>
+                            
+                            
+                          </div>
+                                                    
+                          
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-                    
-               
-            </form>
+
+                @endforeach
+              
 
 
                 
               </div>
 
               <div class="card-footer">
-              
+              {{ $faltas->appends($_GET)->links('pagination::bootstrap-4') }}
               </div>
             </div>
             
@@ -154,15 +219,16 @@
 
 <script>
 
-    var xx=$('#lat').val();
-    var yy=$('#lon').val();
-    
+  function RegistrosFecha(){
+    $('#formfecha').submit();
+  }
+
     var markers = [];
     var marker;
     var geocoder;
-    function initMap(zoom=15) {
-        var initialLat = $('#lat').val()*1;
-        var initialLong = $('#lon').val()*1;
+    function initMap(zoom=4) {
+        var initialLat = $('#latitud').val()*1;
+        var initialLong = $('#longitud').val()*1;
         initialLat = initialLat?initialLat:{{GetLatMexico()}};
         initialLong = initialLong?initialLong:{{GetLonMexico()}};
 
@@ -183,7 +249,7 @@
         geocoder = new google.maps.Geocoder();
         // Create the initial InfoWindow.
         let infoWindow = new google.maps.InfoWindow({
-          content: $('#nombre').val(),
+          content: "Seleccione ubicación de la obra",
           position: myLatlng,
         });
 
@@ -201,8 +267,8 @@
               position: mapsMouseEvent.latLng,
             });
             var coordenadas=mapsMouseEvent.latLng.toJSON();
-            $('#lat').val(coordenadas.lat); 
-            $('#lon').val(coordenadas.lng); 
+            $('#latitud').val(coordenadas.lat);
+            $('#longitud').val(coordenadas.lng);
             const coorobra = { lat:  coordenadas.lat*1, lng: coordenadas.lng*1 };
             marker = new google.maps.Marker({
                 position: coorobra,
@@ -211,7 +277,7 @@
             });
              //Add marker to the array.
             markers.push(marker);
-            infoWindow.setContent('le punto se localiza:<br>Latitud:'+coordenadas.lat+'<br>Longitud:'+coordenadas.lng);
+            infoWindow.setContent('La obra se localiza:<br>Latitud:'+coordenadas.lat+'<br>Longitud:'+coordenadas.lng);
           
             infoWindow.open(map,marker);
           
@@ -248,7 +314,7 @@ $(document).ready(function () {
                    
 
                     
-                    $('#longitud').val(ui.item.lat);
+                    $('#latitud').val(ui.item.lat);
                     $('#longitud').val(ui.item.lon);
                     //var latlng = new google.maps.LatLng(ui.item.lat, ui.item.lon);
                     //marker.setPosition(latlng);
@@ -261,7 +327,5 @@ $(document).ready(function () {
         
     });
 </script>
-@include('MapsApi')
 </body>
 </html>
-`

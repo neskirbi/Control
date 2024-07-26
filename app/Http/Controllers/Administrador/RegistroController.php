@@ -101,4 +101,6 @@ class RegistroController extends Controller
         $marcadores = Geocerca::get();
         return view('administradores.registros.views.mapa',['marcadores'=>$marcadores,'lat'=>$lat,'lon'=>$lon]);
     }
+
+   
 }
