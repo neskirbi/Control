@@ -57,9 +57,11 @@ class CheckinController extends Controller
         $medico = Medico::select(DB::RAW("(time(now()) > entrada) as tarde"))->where('id' ,GetId())->first();
         if(!Registro::where('id_medico',GetId())->whereraw("date(created_at) = date(now())")->first()){
 
-            $falta = Falta::where('id_medico',GetId())->whereraw('date(created_at) = date(now())')->first();
-            $falta = Falta::find($falta->id);
-            $falta->delete();
+            if($falta = Falta::where('id_medico',GetId())->whereraw('date(created_at) = date(now())')->first()){
+                $falta = Falta::find($falta->id);
+                 $falta->delete();
+            }
+            
             
 
 
