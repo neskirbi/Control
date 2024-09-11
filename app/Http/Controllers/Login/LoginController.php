@@ -82,17 +82,17 @@ class LoginController extends Controller
     function Logout(){
         if( Auth::guard('superusuarios')->check()){
             Auth::guard('superusuarios')->logout();
-            return redirect('/');
+            return redirect('https://iotech-tecnology.com.mx/');
         }
 
         if( Auth::guard('administradores')->check()){
             Auth::guard('administradores')->logout();
-            return redirect('/');
+            return redirect('https://iotech-tecnology.com.mx/');
         }
 
         if( Auth::guard('medicos')->check()){
             Auth::guard('medicos')->logout();
-            return redirect('/');
+            return redirect('https://iotech-tecnology.com.mx/');
         }
     }
 
