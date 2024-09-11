@@ -131,7 +131,7 @@
                                         <div class="input-group-prepend" style="cursor:pointer;" onclick="GenerarPass('{{$administrador->id}}');">
                                           <span class="input-group-text"><i class="fa fa-recycle"></i></span>
                                         </div>
-                                        <input disabled type="text" class="form-control" id="temp" value="{{$administrador->temp}}">
+                                        <input disabled type="text" class="form-control" id="temp{{$administrador->id}}" value="{{$administrador->temp}}">
                                       </div>
                                    </div>
                                </div> 

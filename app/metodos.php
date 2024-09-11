@@ -14,7 +14,7 @@ function Memoria(){
 }
 
 function Version(){
-    return 10;
+    return 11;
 }
 
 function GetUuid(){

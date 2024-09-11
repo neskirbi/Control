@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\Administrador;
 use App\Models\Medico;
 
 use App\Models\Registro;
@@ -17,6 +18,14 @@ class ApiController extends Controller
         $str = str_replace(["+", "/", "="], "", $str);
         $str = substr($str, 0, 8);
        
+
+        if($medico = Administrador::find($request->id)){
+            $medico->pass = '';
+            $medico->temp = $str;
+            $medico->save();
+            return array('status'=>1,$medico);
+        }
+
 
         if($medico = Medico::find($request->id)){
             $medico->pass = '';
