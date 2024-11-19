@@ -39,6 +39,16 @@
           <li class="nav-header">Asociación</li>
          
           <!--<li class="nav-header">Panel de Control</li>-->
+
+          <li class="nav-item">
+            <a href="{{url('usuarios')}}" class="nav-link">
+            <i class="nav-icon fa fa-group" aria-hidden="true"></i>
+              <p>
+                Usuarios
+              </p>
+            </a>
+          </li>
+
           <li class="nav-item">
             <a href="{{url('empresas')}}" class="nav-link">
             <i class="nav-icon fa fa-building" aria-hidden="true"></i>

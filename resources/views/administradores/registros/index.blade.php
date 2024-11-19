@@ -135,7 +135,11 @@
                                 </div>   
 
                                 <div class="col-md-4" > 
-                                  <b>Salida:</b> {{$registro->checkin}}
+                                  @if($registro->latout=='')
+                                  <b>Salida:</b> ----
+                                  @else
+                                  <b>Salida:</b> {{$registro->checkout}}
+                                  @endif
                                 </div>                        
                               
                               </div>

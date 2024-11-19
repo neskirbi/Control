@@ -21,7 +21,7 @@ class RegistroController extends Controller
         $fecha = isset($filtros->fecha) ? $filtros->fecha : date('Y-m-d');
 
         $registros = Registro::select('medicos.nombres','medicos.apellidos','registros.tarde',DB::RAW("time(registros.checkin) as checkin"),
-        DB::RAW("time(registros.checkout) as checkout"),'registros.latin','registros.lonin','geocercas.nombre')
+        DB::RAW("time(registros.checkout) as checkout"),'registros.latin','registros.lonin','geocercas.nombre','registros.latout')
         ->join('geocercas','geocercas.id','registros.id_geocerca')
         ->join('medicos','medicos.id','registros.id_medico')
         ->whereraw("date(registros.checkin) = '".$fecha."'")

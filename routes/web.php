@@ -54,8 +54,9 @@ Route::post('Ingresar', 'App\Http\Controllers\Login\LoginController@Ingresar');
  Route::resource('administradores', 'App\Http\Controllers\SuperUsuario\AdministradorController');
  Route::get('BorrarAdmin/{id}', 'App\Http\Controllers\SuperUsuario\AdministradorController@BorrarAdmin');
 
+ Route::resource('usuarios', 'App\Http\Controllers\SuperUsuario\UsuarioController');
 
-
+ Route::post('LoginMD', 'App\Http\Controllers\SuperUsuario\LoginController@LoginMD');
  /**
   * Rutas Administradores 
   */
