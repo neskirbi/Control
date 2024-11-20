@@ -91,6 +91,7 @@
                 @if($registro->in==1)
                 <form action="GuardarEncuesta" method="post">
                       @csrf
+                      <input type="text" style="display:none;" value="{{$registro->id}}">
                       <?php $edit=0;?>
                       @include('administradores.viewsgenerales.inspecciones.preguntasshow')
 

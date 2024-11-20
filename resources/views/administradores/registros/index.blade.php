@@ -135,11 +135,23 @@
                                 </div>   
 
                                 <div class="col-md-4" > 
-                                  @if($registro->latout=='')
+                                  @if($registro->out==0)
                                   <b>Salida:</b> ----
                                   @else
                                   <b>Salida:</b> {{$registro->checkout}}
                                   @endif
+                                </div>                        
+                              
+                              </div>
+
+                              <div class="row">
+                                                    
+                                <div class="col-md-3" >
+                                 <a href="{{url('verformulario')}}/{{$registro->id_medico}}/{{$registro->fecha}}" class="btn btn-info btn-block" target="_blank"> Formulario</a>
+                                </div>   
+
+                                <div class="col-md-3" > 
+                                 
                                 </div>                        
                               
                               </div>

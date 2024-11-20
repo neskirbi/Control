@@ -63,6 +63,9 @@ Route::post('Ingresar', 'App\Http\Controllers\Login\LoginController@Ingresar');
 
 
   Route::resource('registros', 'App\Http\Controllers\Administrador\RegistroController');
+  Route::get('verformulario/{id}/{fecha}', 'App\Http\Controllers\Administrador\RegistroController@VerFormulario');
+
+  
   Route::resource('faltas', 'App\Http\Controllers\Administrador\FaltaController');
   Route::get('minimapa/{lat}/{lon}', 'App\Http\Controllers\Administrador\RegistroController@MiniMapa');
 
@@ -90,6 +93,9 @@ Route::post('Ingresar', 'App\Http\Controllers\Login\LoginController@Ingresar');
   Route::post('EliminarPeriodo/{id}', 'App\Http\Controllers\Administrador\MedicoController@EliminarPeriodo');
 
   Route::get('BorrarMedico/{id}', 'App\Http\Controllers\Administrador\MedicoController@BorrarMedico');
+
+
+
   
 
   /**

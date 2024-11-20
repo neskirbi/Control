@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Geocerca;
 
 use App\Models\Registro;
+use App\Models\Inspeccion;
 
 class RegistroController extends Controller
 {
@@ -20,8 +21,9 @@ class RegistroController extends Controller
     {
         $fecha = isset($filtros->fecha) ? $filtros->fecha : date('Y-m-d');
 
-        $registros = Registro::select('medicos.nombres','medicos.apellidos','registros.tarde',DB::RAW("time(registros.checkin) as checkin"),
-        DB::RAW("time(registros.checkout) as checkout"),'registros.latin','registros.lonin','geocercas.nombre','registros.latout')
+        $registros = Registro::select('registros.id','medicos.nombres','medicos.apellidos','registros.tarde',DB::RAW("time(registros.checkin) as checkin"),
+        DB::RAW("time(registros.checkout) as checkout"),'registros.latin','registros.lonin','geocercas.nombre','registros.latout','registros.out',
+        DB::RAW("date(registros.created_at) as fecha"),'registros.id_medico')
         ->join('geocercas','geocercas.id','registros.id_geocerca')
         ->join('medicos','medicos.id','registros.id_medico')
         ->whereraw("date(registros.checkin) = '".$fecha."'")
@@ -100,6 +102,11 @@ class RegistroController extends Controller
     function MiniMapa($lat,$lon){
         $marcadores = Geocerca::get();
         return view('administradores.registros.views.mapa',['marcadores'=>$marcadores,'lat'=>$lat,'lon'=>$lon]);
+    }
+
+
+    function VerFormulario($id,$fecha){
+        return Inspeccion::where('id_medico',$id)->whereraw("date(created_at) =  '$fecha' ")->get();
     }
 
    
