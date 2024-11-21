@@ -35,51 +35,267 @@
           <div class="col-12">
             <div class="card card-primary card-outline card-outline-tabs">
               <div class="card-header">
-              <h3 class="card-title"> <i class="nav-icon fa fa-globe" aria-hidden="true"></i> Geocercas</h3>
+              <h3 class="card-title"> <i class="nav-icon fa fa-bars" aria-hidden="true"></i> Respuestas</h3>
                 
                 
               </div>
               <div class="card-body">
-              <form action="{{url('geocercas')}}/{{$geocerca->id}}" method="POST" enctype="multipart/form-data">           
-              @csrf     
-              @method('put')
-              <div class="row">
+                <?php $edit=0;?>
+                <?php
+
+$preguntasid=array();
+
+$fotosid=array();
+
+
+
+foreach($preguntas as $pregunta){
+
+    
+
+    
+
+    switch($pregunta->tipo){
+
+
+
+        case 0:
+
+            $preguntasid[]=$pregunta->id;
+
+            ?>
+
+          
+
+            <div class="row">     
+
                 <div class="col-md-12">
-                  <div class="form-group">
-                    <input required  type="text" class="form-control" id="nombre" name="nombre" placeholder="Lugar" value="{{$geocerca->nombre}}"> 
-                  </div>
+
+                    <div class="callout callout-warning">
+
+                        <h5>{{$pregunta->pregunta}}</h5>
+
+                    </div>
+
                 </div>
-              </div>  
-              <div class="row">
-                <div class="col-md-12">
-                  <div id="map" style=" height: 350px; width:100%;"></div>
-                </div>
-              </div>  
-              <br>             
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <input required  type="text" class="form-control" id="lat" name="lat" placeholder="Lat" value="{{$geocerca->lat}}"> 
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <input required  type="text" class="form-control" id="lon" name="lon" placeholder="Lon" value="{{$geocerca->lon}}"> 
-                  </div>
-                </div>
-              </div>      
+
+            </div>
+
+                            
 
              
-                  
-              <br>
-              <div class="row">
+
+
+
+            <?php
+
+        break;
+
+
+
+
+
+        case 1:
+
+            $preguntasid[]=$pregunta->id;
+
+            ?>
+
+          
+
+                           
+
+            <div class="row">
+
                 <div class="col-md-12">
-                  <button class="btn btn-info">Actualizar</button>
+
+                    <div class="form-group">
+
+                        <label for="pregunta">{{$pregunta->pregunta}}</label>
+
+                        <textarea disabled required  name="pregunta[]" id="pregunta"  class="form-control" aria-invalid="false">{{$respuestas[$pregunta->id]}}</textarea>
+
+                    </div>
+
                 </div>
-              </div>
-                    
-               
-            </form>
+
+            </div>
+
+
+            <?php
+
+        break;
+
+        
+
+        case 2:
+
+           
+
+        break;
+
+        
+
+        case 3:
+
+            $preguntasid[]=$pregunta->id;
+
+            $opciones=explode(',',$pregunta->opciones);
+
+            ?>
+
+                                            
+
+                            
+
+            <div class="row">
+
+                <div class="col-md-12">
+
+                    <div class="form-group">
+
+                        <label for="pregunta">{{$pregunta->pregunta}}</label>
+
+                        <input disabled data-invalido="true" type="text" name="pregunta[]" id="pregunta"  class="form-control" aria-invalid="false" value="{{$respuestas[$pregunta->id]}}">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <?php
+
+        break;
+
+
+
+        case 4:
+
+            $fotosid[]=$pregunta->id;
+
+            ?>
+
+        
+
+
+
+
+            <div class="row">
+                            
+
+                <div class="col-md-6">
+                    <center>
+
+                        <div class="form-group">
+
+                            <label for="">{{$pregunta->pregunta}}</label><br>
+
+                        </div>
+
+                    </center>
+
+                </div>
+
+                <div class="col-md-6">
+                    <center>
+
+                        <div class="form-group">
+
+                            <img src="{{asset('images/inspecciones/evidencia/'.$respuestas[$pregunta->id].'.jpg')}}" alt="" width="50%">
+
+                        </div>
+
+                    </center>
+
+                </div>
+
+
+            </div>
+
+            <?php
+
+        break;
+
+        case 5:
+            $lon=0;
+            $lat=0;
+
+            $coor=explode(",",$respuestas[$pregunta->id]);
+            if(count($coor)==2){
+                $lat=$coor[0];
+                $lon=$coor[1];
+            }
+            ?>
+
+            <div class="row">
+
+                <div class="col-md-12">
+
+                    <div class="form-group">
+
+                        <label for="pregunta">Ubiación</label>
+                        <script>
+
+                            function initMap() {
+                                var lat=("{{$lat}}");
+                                var lon=("{{$lon}}");
+                                console.log(lat+"   "+lon);
+
+                                    const myLatlng = { lat:  lat*1, lng: lon*1 };
+                                    const map = new google.maps.Map(document.getElementById("map"), {
+                                    zoom: 19,
+                                    center: myLatlng,
+                                    });
+                                    const marker = new google.maps.Marker({
+                                        position: myLatlng,
+                                        map
+                                    });
+                                    
+                                    // Create the initial InfoWindow.
+                                   /* let infoWindow = new google.maps.InfoWindow({
+                                    content: $('#obra').val(),
+                                    position: myLatlng,
+                                    title:"Encuesta"
+                                    });*/
+                                    infoWindow.open(map,marker);
+                                    // Configure the click listener.
+                                    /*map.addListener("click", (mapsMouseEvent) => {
+                                    // Close the current InfoWindow.
+                                    infoWindow.close();
+                                    // Create a new InfoWindow.
+                                    infoWindow = new google.maps.InfoWindow({
+                                        position: mapsMouseEvent.latLng,
+                                    });
+                                    var coordenadas=mapsMouseEvent.latLng.toJSON();
+                                    $('#latitud').val(coordenadas.lat);
+                                    $('#longitud').val(coordenadas.lng);
+                                    infoWindow.setContent('La obra se localiza:<br>Latitud:'+coordenadas.lat+'<br>Longitud:'+coordenadas.lng);
+                                    infoWindow.open(map);
+                                    });*/
+                                }
+                        </script>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div calss="row">
+                <div class="col-md-8">
+                    <div id="map" style=" height: 350px; width:100%;"></div>
+                </div>
+            </div>
+            <?php
+        break;
+
+    }
+
+}
+
+
+?>
 
 
                 

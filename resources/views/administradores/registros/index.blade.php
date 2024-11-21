@@ -147,7 +147,8 @@
                               <div class="row">
                                                     
                                 <div class="col-md-3" >
-                                 <a href="{{url('verformulario')}}/{{$registro->id_medico}}/{{$registro->fecha}}" class="btn btn-info btn-block" target="_blank"> Formulario</a>
+                                  {!!GetEncuesta($registro->id_medico,$registro->fecha)!!}
+                                 
                                 </div>   
 
                                 <div class="col-md-3" > 

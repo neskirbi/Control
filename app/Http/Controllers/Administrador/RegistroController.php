@@ -9,6 +9,9 @@ use App\Models\Geocerca;
 
 use App\Models\Registro;
 use App\Models\Inspeccion;
+use App\Models\Pregunta;
+use App\Models\Formulario;
+use App\Models\Respuesta;
 
 class RegistroController extends Controller
 {
@@ -105,8 +108,32 @@ class RegistroController extends Controller
     }
 
 
-    function VerFormulario($id,$fecha){
-        return Inspeccion::where('id_medico',$id)->whereraw("date(created_at) =  '$fecha' ")->get();
+    function VerFormulario($id){
+        
+
+        $inspeccion=Inspeccion::find($id);
+        $encuesta=Formulario::find($inspeccion->id_formulario);
+        $preguntas=Pregunta::where('id_formulario',$inspeccion->id_formulario)->orderby('orden','asc')->get();
+        $respuestas=array();
+        //return $this->GetRespuesta('22af4a6315134f1e995eed3ade0b3b2b','646deab591e24676a92075c78a7fc266');;
+        for($i=0;$i<count($preguntas);$i++){
+            $respuestas[$preguntas[$i]->id]=$this->GetRespuesta($preguntas[$i]->id,$id);
+        }
+
+
+        return view('administradores.registros.formulario',['inspeccion'=>$inspeccion,
+        'encuesta'=>$encuesta,'preguntas'=>$preguntas,'respuestas'=>$respuestas,'id_inspeccion'=>$id,'id_formulario'=>$id]);
+
+    }
+
+    function GetRespuesta($id_pregunta,$id_inspeccion){
+        //return $id_inspeccion.'        '.$id_pregunta;
+        $respuesta = Respuesta::where('id_pregunta',$id_pregunta)->where('id_inspeccion',$id_inspeccion)->first();
+        if(!$respuesta){
+            return '' ;
+        }
+        return $respuesta->respuesta;
+
     }
 
    

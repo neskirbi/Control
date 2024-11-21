@@ -63,7 +63,7 @@ Route::post('Ingresar', 'App\Http\Controllers\Login\LoginController@Ingresar');
 
 
   Route::resource('registros', 'App\Http\Controllers\Administrador\RegistroController');
-  Route::get('verformulario/{id}/{fecha}', 'App\Http\Controllers\Administrador\RegistroController@VerFormulario');
+  Route::get('verformulario/{id}', 'App\Http\Controllers\Administrador\RegistroController@VerFormulario');
 
   
   Route::resource('faltas', 'App\Http\Controllers\Administrador\FaltaController');

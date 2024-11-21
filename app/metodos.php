@@ -5,6 +5,7 @@ use App\Models\SuperUsuario;
 use App\Models\Administrador;
 use App\Models\Cliente;
 use App\Models\Medico;
+use App\Models\Inspeccion;
 
 function Memoria(){
     set_time_limit(0);
@@ -14,7 +15,7 @@ function Memoria(){
 }
 
 function Version(){
-    return 11;
+    return 12;
 }
 
 function GetUuid(){
@@ -110,4 +111,13 @@ function GetLonMexico(){
 }
 
 
+function GetEncuesta($id_medico,$fecha){
+    $inspeccion = Inspeccion::whereraw("id_medico = '$id_medico' and date(created_at) = '$fecha'")->first();
+    if($inspeccion){
+        return '<a href="'.url('verformulario').'/'.$inspeccion->id.'" class="btn btn-info btn-block" target="_blank"> Formulario</a>';
+    }else{
+        return '<a href="#" class="btn btn-danger btn-block" target="_blank">Sin Formulario</a>';
+    }
+    
+}
 ?>
