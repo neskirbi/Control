@@ -29,7 +29,8 @@ class RegistroController extends Controller
         DB::RAW("date(registros.created_at) as fecha"),'registros.id_medico')
         ->join('geocercas','geocercas.id','registros.id_geocerca')
         ->join('medicos','medicos.id','registros.id_medico')
-        ->whereraw("date(registros.checkin) = '".$fecha."'")
+        ->join('administradores','medicos.id_administrador','=','administradores.id')
+        ->whereraw("date(registros.checkin) = '".$fecha."' and administradores.id='".GetId()."' " )
         ->orderby('checkin','asc')
         ->paginate(20);
 

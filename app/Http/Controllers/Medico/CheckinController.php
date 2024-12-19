@@ -29,12 +29,12 @@ class CheckinController extends Controller
             $registro = new Registro();
         }
 
-        $formulario=Formulario::first();
+        $formulario=Formulario::orderby('created_at','desc')->first();
         
 
         $preguntas = array();
 
-        if(! Inspeccion::where('id_medico',GetId())->whereraw("date(created_at) = date(now())")->first() ){
+        if(!Inspeccion::where('id_medico',GetId())->whereraw("date(created_at) = date(now())")->first() ){
             $preguntas=Pregunta::where('id_formulario',$formulario->id)->orderby('orden','asc')->get();
         }
 
