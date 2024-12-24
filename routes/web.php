@@ -94,6 +94,12 @@ Route::post('Ingresar', 'App\Http\Controllers\Login\LoginController@Ingresar');
 
   Route::get('BorrarMedico/{id}', 'App\Http\Controllers\Administrador\MedicoController@BorrarMedico');
 
+  Route::resource('clientes', 'App\Http\Controllers\Administrador\ClienteController');
+  Route::get('BorrarCliente/{id}','App\Http\Controllers\Administrador\ClienteController@BorrarCliente');
+
+
+  Route::resource('reportes', 'App\Http\Controllers\Administrador\ReporteController');
+
 
 
   

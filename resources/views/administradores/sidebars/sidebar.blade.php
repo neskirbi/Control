@@ -40,6 +40,29 @@
          
           <!--<li class="nav-header">Panel de Control</li>-->
           
+
+
+          
+
+          <li class="nav-item">
+            <a href="{{url('clientes')}}" class="nav-link">
+            <i class="nav-icon fa fa-group" aria-hidden="true"></i>
+              <p>
+                Clientes
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{url('medicos')}}" class="nav-link">
+            <i class="nav-icon fa fa-group" aria-hidden="true"></i>
+              <p>
+                Médicos
+              </p>
+            </a>
+          </li>
+
+
  
           <li class="nav-item">
             <a href="{{url('registros')}}" class="nav-link">
@@ -80,10 +103,10 @@
           </li>
 
           <li class="nav-item">
-            <a href="{{url('medicos')}}" class="nav-link">
-            <i class="nav-icon fa fa-group" aria-hidden="true"></i>
+            <a href="{{url('reportes')}}" class="nav-link">
+            <i class="nav-icon fa fa-download" aria-hidden="true"></i>
               <p>
-                Médicos
+                Reportes
               </p>
             </a>
           </li>
