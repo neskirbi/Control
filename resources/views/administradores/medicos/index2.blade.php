@@ -63,135 +63,40 @@
                 
               </div>
               <!-- /.card-header -->
-              <div class="card-body" style="overflow-x: scroll;">
-
-              @foreach($medicos as $medico)
+              <div class="card-body" >
 
               <div class="row">
-                <div class="col-12">
-                    <div class="card ">
-                        <div class="card-header">
-                            <h3 class="card-title"><i class="nav-icon fa fa-user" aria-hidden="true"></i> Médicos</h3> 
-                            <div class="card-tools">
-                                <div class="btn-group dropleft">
-                                    <button class="btn btn-default " type="button" id="menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa fa-bars" aria-hidden="true"></i>
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="menu">
-                                        <a class="dropdown-item" href="{{url('BorrarMedico').'/'.$medico->id}}"><i class="fa fa-trash" aria-hidden="true"></i> Quitar</a>
-                                    </div>
-                                </div>
-                            </div>                           
-                        </div>     
-                        <div class="card-body">
-                          <form action="{{url('medicos')}}/{{$medico->id}}" id="Nadmin" method="post">
-                            @csrf                            
-                            @method('put')
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class='form-group'>
-                                        <label for="nombre">Nombre(s)</label>
-                                        <input required type="text" class="form-control" id="nombres" name="nombres" placeholder="Nombre(s)" value="{{$medico->nombres}}">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class='form-group'>
-                                        <label for="apellidos">Apellidos</label>
-                                        <input required type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Apellidos" value="{{$medico->apellidos}}">
-                                    </div>
-                                </div>
-                            </div>
+              @foreach($medicos as $medico)
 
+                <div class="col-md-3">           
+                  <div class="card">
+                    @if($medico->asistencia>0)
+                      <img src="{{asset('images/iconos/medico-verde.png')}}" class="card-img-top" alt="...">
+                    @else
+                      <img src="{{asset('images/iconos/medico-rojo.png')}}" class="card-img-top" alt="...">
+                    @endif
+                    
+                    <div class="card-body">
+                      <center>
+                        <font style="font-size:15px; "><b>{{$medico->nombres}}</b></font><br>
+                        <font style="font-size:15px; "><b>{{$medico->apellidos}}</b></font><br>
+                        <font style="font-size:15px; ">Cliente: {{$medico->cliente}}</font><br>
+                      </center>                      
+                      
+                      <br>
+                      <div class="row"> 
+                       
 
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class='form-group'>
-                                        <label for="entrada">Entrada</label>
-                                        <input required type="time" class="form-control" id="entrada" name="entrada" placeholder="Entrada" value="{{$medico->entrada}}">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class='form-group'>
-                                        <label for="salida">Salida</label>
-                                        <input required type="time" class="form-control" id="salida" name="salida" placeholder="Salida" value="{{$medico->salida}}">
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="col-md-12">
+                          <a href="{{url('medicos')}}/{{$medico->id}}" target="_blank" class="float-right btn btn-info btn-block"><i class="link" aria-hidden="true"></i> Editar</a>
+                        </div>  
 
-
-                            
-
-
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class='form-group'>
-                                        <label for="telefono">Teléfono</label>
-                                        <input required type="tel" class="form-control" id="telefono" name="telefono" placeholder="Teléfono" value="{{$medico->telefono}}">
-                                    </div>
-                                </div>
-                              
-                            </div>
-
-
-
-                            <div class="row">                     
-                                                   
-                               
-                               <div class="col-sm-4">
-                                   <div class='form-group'>
-                                       <label for="mail">Correo</label>
-                                       <input onkeyup="Cambio(this,'mail');" data-valor="{{$medico->mail}}" required type="mail" class="form-control" id="mail" placeholder="Correo"  value="{{$medico->mail}}">
-                                   </div>
-                               </div> 
-                               
-                               
-                               <div class="col-sm-4">
-                                   <div class='form-group'>
-                                      <label for="temp">Generar Contraseña</label>
-                                      <div class="input-group mb-3">
-                                        <div class="input-group-prepend" style="cursor:pointer;" >
-                                          <span class="input-group-text"><a class="btn btn-info btn-sm" onclick="GenerarPass('{{$medico->id}}');">  Generar</a></span>
-                                        </div>
-                                        <input disabled type="text" class="form-control" id="temp{{$medico->id}}" value="{{$medico->temp}}">
-                                      </div>
-                                   </div>
-                               </div> 
-                               
-                            </div>   
-                            <div class="row">
-                              <div class="col-md-4">
-                                <!--<a href="{{url('medicos')}}/{{$medico->id}}" class="btn btn-info btn-block"> <i class="fa fa-calendar-check-o" aria-hidden="true"></i> Periodos</a>-->
-
-                                <div class='form-group'>
-                                  <label for="cliente">Cliente</label>
-                                  <select class="form-control" id="cliente" name="cliente" >
-                                    <option value="">---Seleccionar un cliente---</option>
-                                    <optgroup></optgroup>
-                                    @foreach($clientes as $cliente)
-                                    <option value="{{$cliente->id}}">{{$cliente->cliente}}</option>
-                                    @endforeach
-                                  </select>
-                                </div>
-
-                              </div>
-                              <div class="col-md-2">
-                                
-                              </div>
-                              <div class="col-md-3">
-                                
-                              </div>
-                              <div class="col-md-3">
-                                <button type="submit" class="btn btn-info btn-block"> <i class="nav-icon fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
-                              </div>
-                            </div>                     
-                          </form>
-                        </div>
-                             
-                    </div>                    
+                      </div>
+                    </div>  
+                  </div>
                 </div>
-              </div>
-                
               @endforeach
+              </div>
 
               <div class="row">
                 <div class="col-12">

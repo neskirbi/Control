@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Administrador;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Medico;
 use App\Models\Periodo;
+use App\Models\Cliente;
 use Redirect;
 
 class MedicoController extends Controller
@@ -21,8 +23,13 @@ class MedicoController extends Controller
      */
     public function index(Request $request)
     {
-        $medicos = Medico::where('id_administrador',GetId())->paginate(15);
-        return view('administradores.medicos.index',['medicos'=>$medicos]);
+        $clientes = Cliente::where('id_administrador',GetId())->get();
+        $medicos = Medico::select('medicos.id','medicos.nombres','medicos.apellidos','clientes.cliente',
+        DB::RAW("(select cliente from clientes where id = medicos.id_cliente) as cliente"),
+        DB::RAW("(select count(id) as asistencia from registros where date(registros.checkin) = date('".date('Y-m-d')."') and id_medico= medicos.id  ) as asistencia"))
+        ->leftjoin('clientes','clientes.id','=','medicos.id_cliente')
+        ->where('medicos.id_administrador',GetId())->orderby('nombres','asc')->get();
+        return view('administradores.medicos.index2',['medicos'=>$medicos,'clientes'=>$clientes]);
     }
 
     /**
@@ -55,6 +62,7 @@ class MedicoController extends Controller
         $medico->salida = $request->salida;
         $medico->telefono = $request->telefono;
         $medico->mail = $request->mail;        
+        $medico->id_empresa = $request->empresa;        
         $medico->pass = '';
         $medico->token = '';   
         $medico->save();
