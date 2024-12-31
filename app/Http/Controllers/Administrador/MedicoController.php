@@ -28,7 +28,10 @@ class MedicoController extends Controller
         DB::RAW("(select cliente from clientes where id = medicos.id_cliente) as cliente"),
         DB::RAW("(select count(id) as asistencia from registros where date(registros.checkin) = date('".date('Y-m-d')."') and id_medico= medicos.id  ) as asistencia"))
         ->leftjoin('clientes','clientes.id','=','medicos.id_cliente')
-        ->where('medicos.id_administrador',GetId())->orderby('nombres','asc')->get();
+        ->where('medicos.id_administrador',GetId())        
+        ->orderby('cliente','asc')
+        ->orderby('nombres','asc')
+        ->get();
         return view('administradores.medicos.index2',['medicos'=>$medicos,'clientes'=>$clientes]);
     }
 
@@ -62,7 +65,7 @@ class MedicoController extends Controller
         $medico->salida = $request->salida;
         $medico->telefono = $request->telefono;
         $medico->mail = $request->mail;        
-        $medico->id_empresa = $request->empresa;        
+        $medico->id_cliente = $request->cliente;        
         $medico->pass = '';
         $medico->token = '';   
         $medico->save();
@@ -91,7 +94,15 @@ class MedicoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $medico = Medico::where('medicos.id',$id)
+        ->select('medicos.id','medicos.nombres','medicos.apellidos','medicos.entrada','medicos.salida',
+        'medicos.telefono','medicos.mail','medicos.temp',
+        'clientes.cliente','medicos.id_cliente','clientes.cliente')
+        ->leftjoin('clientes','clientes.id','=','medicos.id_cliente')
+        ->first();
+        $clientes = Cliente::where('id_administrador',GetId())->get();
+
+        return view('administradores.medicos.edit',['medico'=>$medico,'clientes'=>$clientes]);
     }
 
     /**
@@ -103,6 +114,7 @@ class MedicoController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //return $request;
         if(ValidarMail($request->mail)){
             return redirect('medicos')->with('error','Ingresar un correo diferente, con el que intentó ya está registrado.');
         }
@@ -113,12 +125,13 @@ class MedicoController extends Controller
         $medico->entrada = $request->entrada;
         $medico->salida = $request->salida;
         $medico->telefono = $request->telefono;
+        $medico->id_cliente = $request->cliente;
         
         if(isset($request->mail))
         $medico->mail = $request->mail;
         
         $medico->save();
-        return redirect('medicos')->with('success','Datos Guardados.');
+        return redirect('medicos/'.$medico->id.'\edit')->with('success','Datos Guardados.');
     }
 
     /**
