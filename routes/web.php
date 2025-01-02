@@ -99,7 +99,7 @@ Route::post('Ingresar', 'App\Http\Controllers\Login\LoginController@Ingresar');
 
 
   Route::resource('reportes', 'App\Http\Controllers\Administrador\ReporteController');
-
+  Route::get('Asistencias','App\Http\Controllers\Administrador\ReporteController@Asistencias');
 
 
   

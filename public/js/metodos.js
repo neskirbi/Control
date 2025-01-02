@@ -136,3 +136,77 @@ function HtmltoArray(string){
     string=string.replaceAll(/[\r\n]/g, "");
     return ($('<textarea/>').html(string).text());
 }
+
+
+function GraficarAsistencias(asistencias,year) {
+    
+    /**
+     * No quitar por que es un string y no parsea a json
+     */
+   
+
+   var asistencia=[0,0,0,0,0,0,0,0,0,0,0,0];
+   for(var i in asistencias)
+   {
+        console.log(asistencias[i]);
+        asistencia[asistencias[i].month-1]=asistencias[i].asistencia*1;
+        year=asistencias[i].year;
+   }
+   
+
+   
+  
+   /* ChartJS
+    * -------
+    * Here we will create a few charts using ChartJS
+    */
+
+   //--------------
+   //- AREA CHART -
+   //--------------
+   $('.asistencias').html('<canvas id="pagos" style="min-height: 250px; height: 350px; max-height: 350px; max-width: 100%; display: block; width: 100%;" class="chartjs-render-monitor"></canvas>');
+
+   var areaChartData = {
+     labels  : ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+     datasets: [
+       {
+           label               : 'Asistencias '+ year,
+           backgroundColor     : '#28A745',
+           borderColor         : 'rgba(60,141,188,0.8)',
+           pointRadius          : false,
+           pointColor          : '#3b8bba',
+           pointStrokeColor    : 'rgba(60,141,188,1)',
+           pointHighlightFill  : '#fff',
+           pointHighlightStroke: 'rgba(60,141,188,1)',
+           data                : asistencia
+       }
+      
+     ]
+   }
+
+
+   var barChartCanvas = $('#pagos').get(0).getContext('2d')
+   var barChartData = $.extend(true, {}, areaChartData)
+   var temp0 = areaChartData.datasets[0]
+   barChartData.datasets[0] = temp0
+
+   var barChartOptions = {
+       responsive              : true,
+       maintainAspectRatio     : false,
+       datasetFill             : false,
+       scales: {
+           yAxes: [{
+               ticks: {
+                   beginAtZero: true
+               }
+           }]
+       }
+   }
+
+   new Chart(barChartCanvas, {
+     type: 'bar',
+     data: barChartData,
+     options: barChartOptions
+   })
+
+}

@@ -29,6 +29,28 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
+
+        <div class="row">
+          <div class="col-md-12">
+            <!-- BAR CHART -->
+            <div class="card card-info">
+              <div class="card-header">
+                <h3 class="card-title">Asistencias</h3>
+                <div class="card-tools">
+                  
+                </div>
+              </div>
+              <div class="card-body">
+                
+                <iframe src="{{url('Asistencias')}}" frameborder="0" width="100%" height="450px"></iframe>
+                
+              </div>
+              <!-- /.card-body -->
+            </div>
+
+          </div>
+          <!-- /.col (RIGHT) -->
+        </div>
         
         <!-- /.row -->
       </div><!-- /.container-fluid -->
