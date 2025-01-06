@@ -210,3 +210,14 @@ function GraficarAsistencias(asistencias,year) {
    })
 
 }
+
+
+function AsistenciasMes(){
+    var year = $('#year').val();
+    var month = $('#month').val();
+    if(month==''){
+        alert('Debe seleccionar un mes para descargar el reporte.');
+        return;
+    }
+    window.open(Url()+'AsistenciasMes/'+year+'/'+month);
+}

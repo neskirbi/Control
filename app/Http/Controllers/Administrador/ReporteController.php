@@ -12,6 +12,7 @@ use App\Models\Medico;
 class ReporteController extends Controller
 {
     function index(){
+        
         return view('administradores.reportes.index');
     }
 
@@ -25,6 +26,6 @@ class ReporteController extends Controller
         ->get();
         return view('administradores.reportes.frames.asistencias',[
         'year'=>$year,
-        'filtros'=>$request,'asistencias'=>$asistencias]);
+        'filtros'=>$request,'asistencias'=>$asistencias,'meses'=>Meses()]);
     }
 }

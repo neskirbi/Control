@@ -34,6 +34,15 @@ Route::get('/', function () {
 });
 
 
+/**
+ * Rutas Reportes
+ */
+Route::get('AsistenciasMes/{year}/{month}', 'App\Http\Controllers\Reportes\ReporteController@AsistenciasMes');
+
+
+ 
+
+
 Route::resource('login', 'App\Http\Controllers\Login\LoginController');
 Route::get('logout', 'App\Http\Controllers\Login\LoginController@Logout');
 Route::get('newpass/{id}', 'App\Http\Controllers\Login\LoginController@NewPass');

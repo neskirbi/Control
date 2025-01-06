@@ -11,10 +11,7 @@
     <div class="row">                              
         <div class="col-md-6">
         </div>
-        <div class="col-md-4">
-            
-            </select>
-        </div>
+        
         <div class="col-md-2">
             <div class="input-group mb-3">
                 <input name="year" id="year" class="form-control" type="number" step="1" min="2021" value="{{isset($filtros->year) ? $filtros->year : date('Y')}}" onchange="Submite();">                                    
@@ -22,6 +19,22 @@
                     <span class="input-group-text"><i class="fa fa-calendar-o" aria-hidden="true"></i></span>
                 </div>
             </div>
+        </div>
+
+        <div class="col-md-2">
+            <select name="month" id="month" class="form-control">
+                <option value="">--Seleccionar--</option>
+                <optgroup></optgroup>
+                @foreach($meses as $index=>$mes)
+                <option value="{{$index+1}}">{{$mes}}</option>
+                @endforeach
+            </select>
+            
+        </div>
+
+        <div class="col-md-2">
+            <a class="btn btn-info btn-block" onclick="AsistenciasMes();"><i class="nav-icon fa fa-download" aria-hidden="true"></i> Reporte</a>
+            
         </div>
         
         
@@ -51,9 +64,13 @@
 
 <script>
       
-      function Submite(){
+    function Submite(){
         $('#Asistencias').submit();
     }
-  GraficarAsistencias(HtmltoJson('{{$asistencias}}'),'{{$year}}');
+
+
+    GraficarAsistencias(HtmltoJson('{{$asistencias}}'),'{{$year}}');
+
+    
 </script>
 </html>

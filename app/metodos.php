@@ -7,6 +7,17 @@ use App\Models\Cliente;
 use App\Models\Medico;
 use App\Models\Inspeccion;
 
+
+function Meses(){
+    return $meses=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+}
+
+function DiasMeses(){
+    return $Meses31=[0=>31,1=>28,2=>31,3=>30,4=>31,5=>30,6=>31,7=>31,8=>30,9=>31,10=>30,11=>31];
+}
+
+
+
 function Memoria(){
     set_time_limit(0);
     ini_set('memory_limit', '-1');
@@ -17,6 +28,8 @@ function Memoria(){
 function Version(){
     return 12;
 }
+
+
 
 function GetUuid(){
     $data = random_bytes(16);
